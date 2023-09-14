@@ -10,9 +10,9 @@ import Axios from "./interceptor";
  * @param {object} udata
  * @returns {Promise}
  */
-let register = (udata) => {
+let Register = (udata) => {
     console.log(udata);
-    return Axios.post('/users', udata)
+    return Axios.post('/user/register', udata)
 }
 
 /** 
@@ -31,5 +31,5 @@ let userLogedData = () => {
 }
 
 export const AuthSys = {
-    register,Login, userLogedData
+    Register,Login, userLogedData
 }

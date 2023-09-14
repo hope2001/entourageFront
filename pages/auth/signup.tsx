@@ -13,10 +13,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, SubmitHandler } from "react-hook-form";
+import router, { useRouter } from 'next/router';
+import { AuthSys } from '@/Services/Requests/auth';
+import { Tokenn } from '@/Services/Helpers/TokenLogic';
+import { toast } from 'react-toastify';
 
 type Inputs = {
+    name: string,
     email: string,
     password: string,
+    bio: string,
+    location: string
   }; 
 
 function Copyright(props: any) {
@@ -38,13 +45,59 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-                console.log(data);}
-  
+  const router = useRouter();
+
+  const { register, handleSubmit,resetField, watch, formState: { errors } } = useForm<Inputs>();
+  // const onSubmit: SubmitHandler<Inputs> = (data) => {
+  //   console.log(data);
+  // }
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data);
+    let body;
+    if (data.email !== "" && data.password !== "") {
+        body = {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          bio: data.bio,
+          location: data.location
+        }
+
+      console.log(body);
+      try{
+         const response = await AuthSys.Register(body)
+
+         console.log("---->",response);
+          Tokenn.saveToken(response.data.access_token)
+          resetField()
+          toast("Vous vous êtes inscrit", {
+              hideProgressBar: false,
+              autoClose: 5000,
+              type: "info",
+          });
+          router.push("/auth/signin")
+         
+
+       } catch (error) {
+
+         console.error('------->',error);
+         toast(error.message, {
+             hideProgressBar: false,
+             autoClose: 4000,
+             type: "error",
+           });
+       }
+
+    }else{
+        alert('Tous les champs sont obligatoires')
+    }
+  };
+
+
   const handleSubmit1 = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const data = event.currentTarget;
     console.log({
       email: data.get('email'),
       password: data.get('password'),
@@ -99,6 +152,16 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
+                id="name"
+                label="Nom et Prénoms"
+                {...register("name", { required: true })}
+                autoComplete="Manuel Kokoui"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 id="email"
                 label="Email Address"
                 {...register("email", { required: true })}
@@ -115,6 +178,26 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="current-password"
               />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                {...register("bio", { required: true })}
+                label="Bio"
+                type="bio"
+                id="bio"
+                autoComplete="current-bio"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                {...register("location", { required: true })}
+                label="Localisation"
+                type="location"
+                id="location"
+                autoComplete="current-location"
+              />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -127,7 +210,7 @@ export default function SignInSide() {
                 style={{backgroundColor: "#F2AC23", color: "white", padding:"3", width:"50%", display:"block", margin:"auto"}}
 
               >
-                Sign In
+                Sign Up
               </Button>
               {/* <Grid container>
                 <Grid item xs>
