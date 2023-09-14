@@ -13,7 +13,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, SubmitHandler } from "react-hook-form";
-
+import { Tokenn } from '@/Services/Helpers/TokenLogic';
+import { AuthSys } from '@/Services/Requests/auth';
+import { toast } from "react-toastify";
+import { useRouter } from 'next/router';
 type Inputs = {
     email: string,
     password: string,
@@ -38,9 +41,51 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-                console.log(data);}
+  const router = useRouter();
+    const { register, handleSubmit, watch,resetField, formState: { errors } } = useForm<Inputs>();
+    // const onSubmit: SubmitHandler<Inputs> = (data) => {
+    //             console.log(data);}
+
+                
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        console.log(data);
+        // let body;
+        if (data.email !== "" && data.password !== "") {
+            let formDataToSend = new FormData();
+            formDataToSend.append('username', data.email);
+            formDataToSend.append('password', data.password);
+
+          console.log(formDataToSend);
+          try{
+             const response = await AuthSys.Login(formDataToSend)
+
+             console.log("---->",response);
+            //  if(response.status == 201){
+                Tokenn.saveToken(response.data.access_token)
+                resetField()
+                toast("Vous êtes connecté", {
+                    hideProgressBar: false,
+                    autoClose: 5000,
+                    type: "info",
+                });
+            // }
+            router.push("/")
+             
+ 
+           } catch (error) {
+ 
+             console.error('------->',error);
+             toast(error.message, {
+                 hideProgressBar: false,
+                 autoClose: 4000,
+                 type: "error",
+               });
+           }
+
+        }else{
+            alert('Tous les champs sont obligatoires')
+        }
+      };
   
   const handleSubmit1 = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

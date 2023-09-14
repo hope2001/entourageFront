@@ -13,7 +13,8 @@ import createEmotionCache from 'src/createEmotionCache';
 import { SidebarProvider } from 'src/contexts/SidebarContext';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-
+import { ToastContainer } from 'react-toastify';
+import { QueryClient, QueryClientProvider } from "react-query";
 const clientSideEmotionCache = createEmotionCache();
 
 type NextPageWithLayout = NextPage & {
@@ -32,8 +33,9 @@ function TokyoApp(props: TokyoAppProps) {
   Router.events.on('routeChangeStart', nProgress.start);
   Router.events.on('routeChangeError', nProgress.done);
   Router.events.on('routeChangeComplete', nProgress.done);
-
+  const queryClient = new QueryClient();
   return (
+    <QueryClientProvider client={queryClient}>
     <CacheProvider value={emotionCache}>
       <Head>
         <title>Entourage</title>
@@ -51,6 +53,8 @@ function TokyoApp(props: TokyoAppProps) {
         </ThemeProvider>
       </SidebarProvider>
     </CacheProvider>
+  <ToastContainer />
+</QueryClientProvider>
   );
 }
 

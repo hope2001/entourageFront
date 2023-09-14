@@ -1,8 +1,5 @@
 
-import Axios from './interceptor';
-// import { axios } from 'axios';
-// import axios from "axios";
-// import axios from "axios";
+import Axios from "./interceptor";
 
 /**
  * Connexion vers l'API
@@ -23,7 +20,7 @@ let register = (udata) => {
  * @returns {Promise}
  */
 let Login = (credentials) => {
-    return Axios.post('/token', credentials)
+    return Axios.post('/login/token', credentials)
 }
 /** 
  * @param {object} udata
