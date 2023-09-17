@@ -103,7 +103,9 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
         reset()
         
         console.log(inter);
-        const apiUrlfull = "http://127.0.0.1:8001/chatbot?collect_name=entouragetest10&query="+query+"&json_data="+JSON.stringify(inter)+"&model=gpt-3.5-turbo&temp=0.6&templa=As%20a%20career%20development%20expert%2C%20you%20need%20to%20provide%20a%20helpful%20and%20professional%20answer%20to%20the%20user%27s%20question%20or%20problem.%20Add%20to%20your%20answers%20interesting%20professional%20profiles%20related%20to%20his%20question.%20Remember%20that%20you%20should%20never%20make%20up%20any%20information%20if%20you%20don%27t%20have%20a%20correct%20answer%20to%20the%20question."; // Your API URL
+        alert(JSON.stringify(inter));
+        const apiUrlfull = "http://127.0.0.1:8001/chatbot?collect_name=entouragetest10&query="+query+"&json_data="+JSON.stringify([])+"&model=gpt-4&temp=0&templa=As%20a%20career%20development%20expert%2C%20you%20need%20to%20provide%20a%20helpful%20and%20professional%20answer%20to%20the%20user%27s%20question%20or%20problem.%20Add%20to%20your%20answers%20interesting%20professional%20profiles%20related%20to%20his%20question.%20Remember%20that%20you%20should%20never%20make%20up%20any%20information%20if%20you%20don%27t%20have%20a%20correct%20answer%20to%20the%20question."; // Your API URL
+        // const apiUrlfull = "http://127.0.0.1:8001/chatbot?collect_name=entouragetest10&query="+query+"&model=gpt-4&temp=0&templa=As%20a%20career%20development%20expert%2C%20you%20need%20to%20provide%20a%20helpful%20and%20professional%20answer%20to%20the%20user%27s%20question%20or%20problem.%20Add%20to%20your%20answers%20interesting%20professional%20profiles%20related%20to%20his%20question.%20Remember%20that%20you%20should%20never%20make%20up%20any%20information%20if%20you%20don%27t%20have%20a%20correct%20answer%20to%20the%20question."; // Your API URL
   //   const apiUrlfull = 'http://127.0.0.1:8001/chatbot?'+'collect_name:=entouragetest10'+'&query=Bonjour'+'&json_data=%5B%5D'+'&model=gpt-3.5-turbo&temp=0.6'+'&templa='+"As a career development expert, you need to provide a helpful and professional response to the user\'s question or problem. Add to your answers interesting professional profiles related to his question. Remember that you should never invent or provide professional profiles that are not in the CONTEXT provided."; // Your API URL
         const response = await Axios.post(apiUrlfull);
         const res =  await ChatRequest.ask1(data.query, JSON.stringify(response.data))
@@ -188,7 +190,7 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
         </Button>
       </Box></span>
     </Box>
-      <div style={{fontSize:"12px"}} className="container text-center p-2 mx-auto">Please be mindful that Entourage retains your conversations for performance monitoring. Please refrain from sharing sensitive information during these exchanges.</div>
+      <div style={{fontSize:"10px"}} className="container text-center text-warning p-2 mx-auto">Please be mindful that Entourage retains your conversations for performance monitoring. Please refrain from sharing sensitive information during these exchanges.</div>
     </form>
   );
 }

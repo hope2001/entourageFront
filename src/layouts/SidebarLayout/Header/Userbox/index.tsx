@@ -83,7 +83,11 @@ function HeaderUserbox() {
     error: erroruser,
     refetch
   } = useFetchUserData();
-  console.log(userdata);
+const handleLogout = () => {
+  Tokenn.dropToken()
+    refetch();
+    window.location.reload();
+  }
   
   return (
     <>
@@ -148,7 +152,7 @@ function HeaderUserbox() {
         </List>
         <Divider />
         <Box sx={{ m: 1 }}>
-          <Button onClick={()=> Tokenn.dropToken()} color="primary" fullWidth>
+          <Button onClick={()=> handleLogout()} color="primary" fullWidth>
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Sign out
           </Button>
