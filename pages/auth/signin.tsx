@@ -17,6 +17,7 @@ import { Tokenn } from '@/Services/Helpers/TokenLogic';
 import { AuthSys } from '@/Services/Requests/auth';
 import { toast } from "react-toastify";
 import { useRouter } from 'next/router';
+// import { useToast } from '@chakra-ui/react'
 type Inputs = {
     email: string,
     password: string,
@@ -40,9 +41,9 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+export default function SignIn() {
   const router = useRouter();
-    const { register, handleSubmit, watch,resetField, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit, watch,reset, formState: { errors } } = useForm<Inputs>();
     // const onSubmit: SubmitHandler<Inputs> = (data) => {
     //             console.log(data);}
 
@@ -55,31 +56,39 @@ export default function SignInSide() {
             formDataToSend.append('username', data.email);
             formDataToSend.append('password', data.password);
 
-          console.log(formDataToSend);
+          // console.log(formDataToSend);
+
           try{
              const response = await AuthSys.Login(formDataToSend)
-
              console.log("---->",response);
-            //  if(response.status == 201){
+             
                 Tokenn.saveToken(response.data.access_token)
-                resetField()
-                toast("Vous êtes connecté", {
+                reset()
+                toast("You are connected", {
                     hideProgressBar: false,
                     autoClose: 5000,
-                    type: "info",
+                    type: "success",
                 });
-            // }
-            router.push("/")
-             
+                router.push("/")
  
            } catch (error) {
  
-             console.error('------->',error);
-             toast(error.message, {
-                 hideProgressBar: false,
-                 autoClose: 4000,
-                 type: "error",
-               });
+
+      
+            if(error.response.status === 401)
+            {
+               toast("Invalid credentials", {
+                hideProgressBar: false,
+                autoClose: 4000,
+                type: "error",})
+            }
+            else{
+               toast("Server Error", {  
+                hideProgressBar: false,
+                autoClose: 5000,
+                type: "error" })
+            }
+             console.table('------->',error);
            }
 
         }else{
@@ -100,7 +109,7 @@ export default function SignInSide() {
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Grid
+        {/* <Grid
           item
           xs={false}
           sm={4}
@@ -114,8 +123,9 @@ export default function SignInSide() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-        />
-        <Grid style={{justifyContent:"center", display:"flex", backgroundColor:"#ebd8ce"}}  item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        /> */}
+        {/* <Grid style={{justifyContent:"center", display:"flex", backgroundColor:"#ebd8ce"}}  item xs={12} sm={8} md={5} component={Paper} elevation={6} square> */}
+        <Grid style={{justifyContent:"center", display:"flex", backgroundColor:"#ebd8ce"}}  item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
           <Box
           bgcolor="white"
             sx={{
@@ -149,7 +159,7 @@ export default function SignInSide() {
                 {...register("email", { required: true })}
                 autoComplete="email"
                 autoFocus
-              />
+              />{errors.email && <span>email is required</span>}
               <TextField
                 margin="normal"
                 required
@@ -159,7 +169,7 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
+              />{errors.password && <span>password is required</span>}
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -174,7 +184,7 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
-              {/* <Grid container>
+              <Grid className="mt-5" container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
@@ -185,7 +195,7 @@ export default function SignInSide() {
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
-              </Grid> */}
+              </Grid>
               <Copyright sx={{ mt: 5 }} />
               </form>
             </Box>

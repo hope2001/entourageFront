@@ -44,10 +44,10 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+export default function SignUp() {
   const router = useRouter();
 
-  const { register, handleSubmit,resetField, watch, formState: { errors } } = useForm<Inputs>();
+  const { register, handleSubmit,reset, watch, formState: { errors } } = useForm<Inputs>();
   // const onSubmit: SubmitHandler<Inputs> = (data) => {
   //   console.log(data);
   // }
@@ -70,11 +70,11 @@ export default function SignInSide() {
 
          console.log("---->",response);
           Tokenn.saveToken(response.data.access_token)
-          resetField()
-          toast("Vous vous êtes inscrit", {
+          reset()
+          toast("Successfully Registered", {
               hideProgressBar: false,
               autoClose: 5000,
-              type: "info",
+              type: "success",
           });
           router.push("/auth/signin")
          
@@ -107,7 +107,7 @@ export default function SignInSide() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
+        {/* <CssBaseline />
         <Grid
           item
           xs={false}
@@ -122,18 +122,20 @@ export default function SignInSide() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-        />
-        <Grid style={{justifyContent:"center", display:"flex", backgroundColor:"#ebd8ce"}}  item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        /> */}
+        {/* <Grid style={{justifyContent:"center", display:"flex", backgroundColor:"#ebd8ce"}}  item xs={12} sm={8} md={5} component={Paper} elevation={6} square> */}
+        <Grid style={{justifyContent:"center", display:"flex", backgroundColor:"#ebd8ce"}}  item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
           <Box
           bgcolor="white"
             sx={{
               my: 15,
-              mx: 4,
+              mx: 6,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               borderRadius: "20px",
               padding: 10,
+              // width:"60%",
               
             }}
             style={{justifyContent:"center", display:"flex"}}
@@ -144,16 +146,16 @@ export default function SignInSide() {
             </Avatar> */}
               <img src="/static/images/logo/logodark.svg"/>
             <Typography component="h1" variant="h5">
-              Sign in
+              Register
             </Typography>
             <Box component="div" noValidate  sx={{ mt: 1 }}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className="" onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 id="name"
-                label="Nom et Prénoms"
+                label="First Name & Last Name"
                 {...register("name", { required: true })}
                 autoComplete="Manuel Kokoui"
                 autoFocus
@@ -193,7 +195,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 {...register("location", { required: true })}
-                label="Localisation"
+                label="Address"
                 type="location"
                 id="location"
                 autoComplete="current-location"
@@ -212,18 +214,18 @@ export default function SignInSide() {
               >
                 Sign Up
               </Button>
-              {/* <Grid container>
+              <Grid className='mt-5' container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/auth/signup" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                  <Link href="/auth/signin" variant="body2">
+                    {"You have an account? Login"}
                   </Link>
                 </Grid>
-              </Grid> */}
+              </Grid>
               <Copyright sx={{ mt: 5 }} />
               </form>
             </Box>

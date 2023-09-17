@@ -22,6 +22,8 @@ import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import { useFetchUserData } from '@/Services/Query/userQuery';
+import { Tokenn } from '@/Services/Helpers/TokenLogic';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -75,16 +77,23 @@ function HeaderUserbox() {
   const handleClose = (): void => {
     setOpen(false);
   };
-
+  const {
+    data: userdata,
+    isLoading: isLoadinguser,
+    error: erroruser,
+    refetch
+  } = useFetchUserData();
+  console.log(userdata);
+  
   return (
     <>
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+        <Avatar variant="rounded" alt={userdata?.name} src={user.avatar} />
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userdata?.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userdata?.location}
             </UserBoxDescription>
           </UserBoxText>
         </Hidden>
@@ -106,29 +115,31 @@ function HeaderUserbox() {
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          <Avatar variant="rounded" alt={userdata?.name} src={user.avatar} />
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userdata?.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userdata?.location}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />
         <List sx={{ p: 1 }} component="nav">
-          <NextLink href="/management/profile" passHref>
+          {/* <NextLink href="/management/profile" passHref> */}
+          <NextLink href="#" passHref>
             <ListItem button>
               <AccountBoxTwoToneIcon fontSize="small" />
               <ListItemText primary="My Profile" />
             </ListItem>
           </NextLink>
-          <NextLink href="/applications/messenger" passHref>
+          {/* <NextLink href="/applications/messenger" passHref>
             <ListItem button>
               <InboxTwoToneIcon fontSize="small" />
               <ListItemText primary="Messenger" />
             </ListItem>
-          </NextLink>
-          <NextLink href="/management/profile/settings" passHref>
+          </NextLink> */}
+          {/* <NextLink href="/management/profile/settings" passHref> */}
+          <NextLink href="#" passHref>
             <ListItem button>
               <AccountTreeTwoToneIcon fontSize="small" />
               <ListItemText primary="Account Settings" />
@@ -137,7 +148,7 @@ function HeaderUserbox() {
         </List>
         <Divider />
         <Box sx={{ m: 1 }}>
-          <Button color="primary" fullWidth>
+          <Button onClick={()=> Tokenn.dropToken()} color="primary" fullWidth>
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Sign out
           </Button>

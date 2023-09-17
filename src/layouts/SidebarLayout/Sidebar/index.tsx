@@ -80,19 +80,23 @@ function Sidebar() {
             background: theme.colors.alpha.trueWhite[10]
           }}
         />
-        <Box  p={2}>
+        {/* <Box  p={2}>
           <Button
             href="https://bloomui.com"
             target="_blank"
             rel="noopener noreferrer"
             variant="contained"
             color="success"
-            size="small"
+            size="large"
             fullWidth
           >
             Upgrade to PRO
           </Button>
-        </Box>
+        </Box> */}
+        <div style={{width:"90%", borderRadius:"12px", backgroundColor:"#43342F"}} className=" gap-2 d-flex p-2 m-auto rounded-lg  justify-content-around">
+          <span style={{width:"45%", background:"#241814"}} className="d-flex p-2 text-center justify-content-center rounded"> <i className="bi bi-sun"></i> </span>
+          <span style={{width:"45%"}} className="d-flex p-2 text-center justify-content-center "> <i className="bi bi-moon"></i> </span>
+        </div>
       </SidebarWrapper>
       <Drawer
         sx={{
@@ -140,3 +144,5 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
+

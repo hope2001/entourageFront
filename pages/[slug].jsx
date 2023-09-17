@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Head from 'next/head';
 import SidebarLayout from '@/layouts/SidebarLayout';
@@ -19,9 +19,12 @@ import {
   IconButton,
   useTheme
 } from '@mui/material';
-import { ChatContext } from '@/Services/Context/chatContext';
-import { useFetchUserData } from '@/Services/Query/userQuery';
-import { useRouter } from 'next/router';
+
+import { useRouter } from 'next/router'
+ 
+
+  
+
 
 const RootWrapper = styled(Box)(
   ({ theme }) => `
@@ -78,23 +81,6 @@ const DrawerWrapperMobile = styled(Drawer)(
 );
 
 function ApplicationsMessenger() {
-  const router = useRouter()
-  // const pathname = usePathname()
-  const [isok, setisok] = useState(false)
-  const {
-    data: currenntuser,
-    isLoading: isLoadingCurrentUser,
-    error: errorCurrentUser, 
-    refetch
-} = useFetchUserData();
-
-// if(isLoadingCurrentUser && currenntuser)return <div className="">Loading</div>
-if(isLoadingCurrentUser && currenntuser)
-    return <div className="">Loading</div>
-if(!isLoadingCurrentUser &&!currenntuser){
-    router.push('/auth/signin')
-}
-  const { newChat, setnewChat } = useContext(ChatContext)
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -106,21 +92,14 @@ if(!isLoadingCurrentUser &&!currenntuser){
   const [error, setError] = useState(null);
   const [chatLoad, setchatLoad] = useState(false);
 
-  useEffect(() => {
-    refetch()
-  }, [currenntuser])
-  useEffect(() => {
-    setConverse([])
-    setResponse(null)
-    setError(null)
-    setError(false)
-  }, [newChat])
-  
+  const router = useRouter()
+// const handleClick = (e) => {
+//   console.log(e.target.id)
+//   router.push(`/applications/${e.target.id}`)
+// }
+
   return (
-  
-
-
-    <div>
+    <>
       <Head>
         <title>Entourage - Applications</title>
       </Head>
@@ -179,8 +158,7 @@ if(!isLoadingCurrentUser &&!currenntuser){
           <BottomBarContent converse={converse} setConverse={setConverse} chatLoad={chatLoad} setchatLoad={setchatLoad} response={response} setResponse={setResponse} error={error} setError={setError}/>
         </ChatWindow>
       </RootWrapper>
-    </div>
-
+    </>
   );
 }
 
