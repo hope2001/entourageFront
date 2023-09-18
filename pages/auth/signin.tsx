@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,7 +9,7 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -43,7 +43,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const router = useRouter();
-    const { register, handleSubmit, watch,reset, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit,reset, formState: { errors } } = useForm<Inputs>();
     // const onSubmit: SubmitHandler<Inputs> = (data) => {
     //             console.log(data);}
 
@@ -69,7 +69,7 @@ export default function SignIn() {
                     autoClose: 5000,
                     type: "success",
                 });
-                router.push("/")
+                router.push("/chat")
  
            } catch (error) {
  
@@ -96,15 +96,6 @@ export default function SignIn() {
         }
       };
   
-  const handleSubmit1 = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -148,7 +139,7 @@ export default function SignIn() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="div" noValidate  sx={{ mt: 1 }}>
+            <Box component="div"  sx={{ mt: 1 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 margin="normal"

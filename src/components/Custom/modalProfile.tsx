@@ -1,20 +1,19 @@
 import { Box, Button, Modal, Typography } from '@mui/material';
-import { useState } from 'react';
+// import { useState } from 'react';
 
-function ProfilModal({data, open, setOpen}) {
+function ProfilModal({ open}) {
 
 
   
     return (
       <>
-<Button onClick={"handleOpen"}>Open modal</Button>
+<Button >Open modal</Button>
 <Modal
   open={open}
-  onClose={"handleClose"}
   aria-labelledby="modal-modal-title"
   aria-describedby="modal-modal-description"
 >
-  <Box sx={"style"}>
+  <Box >
     <Typography id="modal-modal-title" variant="h6" component="h2">
       Text in a modal
     </Typography>

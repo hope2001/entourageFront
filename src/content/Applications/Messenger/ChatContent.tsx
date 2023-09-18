@@ -1,32 +1,33 @@
-import { Box, Avatar, Typography, Card, styled, Divider, Slide, Container } from '@mui/material';
+import { Box, Avatar, Typography, Card, styled, Slide } from '@mui/material';
 import { useState } from "react";
-import {
-  formatDistance,
-  format,
-  subDays,
-  subHours,
-  subMinutes
-} from 'date-fns';
-import ScheduleTwoToneIcon from '@mui/icons-material/ScheduleTwoTone';
-import { Grid } from 'react-bootstrap-icons';
+// import {
+//   formatDistance,
+//   format,
+//   subDays,
+//   subHours,
+//   subMinutes
+// } from 'date-fns';
+// import ScheduleTwoToneIcon from '@mui/icons-material/ScheduleTwoTone';
+// import { Grid } from 'react-bootstrap-icons';
 import CollapsibleText from '@/components/Custom/CollapsText';
-import ProfilModal from '@/components/Custom/modalProfile';
+// import ProfilModal from '@/components/Custom/modalProfile';
 import Example from '@/components/Custom/modals';
 import CollapsibleText1 from '@/components/Custom/CollapseTest1';
-import { ChatRequest } from '@/Services/Requests/chatReq';
+// import { ChatRequest } from '@/Services/Requests/chatReq';
+import Liker from '@/components/Custom/likesComponents';
 // import { toast } from 'material-react-toastify';
 
-const DividerWrapper = styled(Divider)(
-  ({ theme }) => `
-      .MuiDivider-wrapper {
-        border-radius: ${theme.general.borderRadiusSm};
-        text-transform: none;
-        background: ${theme.palette.background.default};
-        font-size: ${theme.typography.pxToRem(13)};
-        color: ${theme.colors.alpha.black[50]};
-      }
-`
-);
+// const DividerWrapper = styled(Divider)(
+//   ({ theme }) => `
+//       .MuiDivider-wrapper {
+//         border-radius: ${theme.general.borderRadiusSm};
+//         text-transform: none;
+//         background: ${theme.palette.background.default};
+//         font-size: ${theme.typography.pxToRem(13)};
+//         color: ${theme.colors.alpha.black[50]};
+//       }
+// `
+// );
 
 const CardWrapperPrimary = styled(Card)(
   ({ theme }) => `
@@ -52,7 +53,9 @@ const CardWrapperSecondary = styled(Card)(
 `
 );
 
-function ChatContent({ converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError }) {
+
+function ChatContent({ converse,  chatLoad}) {
+// function ChatContent({ converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError }) {
   const user = {
     name: 'Catherine Pike',
     avatar: '/static/images/avatars/1.jpg'
@@ -65,8 +68,8 @@ function ChatContent({ converse, setConverse, chatLoad, setchatLoad, response, s
     { query: "I want to pivot my career to management consulting. Who should I talk with ?" }
 
   ]
-  // const notify = () => toast('Wow so easy!');
-  const [isOpen, setIsOpen] = useState(false);
+
+  // const [isOpen, setIsOpen] = useState(false);
   const [infoDetails, setinfoDetails] = useState(null);
   const [openInfoDetails, setopenInfoDetails] = useState(false);
 
@@ -74,17 +77,17 @@ function ChatContent({ converse, setConverse, chatLoad, setchatLoad, response, s
     setopenInfoDetails(true);
     setinfoDetails(data);
   }
-const HandleLikes = async(c_id, like_status)=>{
-  try {
-    const res =  await ChatRequest.setlike(c_id, like_status)
-    if(res){
-      
-    }
-  } catch (error) {
-    console.log(error.message);
+// const HandleLikes = async(c_id, like_status)=>{
+//   try {
+//     const res =  await ChatRequest.setlike(c_id, like_status)
+//     if(res){
+
+//     }
+//   } catch (error) {
+//     console.log(error.message);
     
-  }
-}
+//   }
+// }
   return (
     <Box p={3}>
 
@@ -155,6 +158,7 @@ const HandleLikes = async(c_id, like_status)=>{
                           <strong className=""> {elmt.Full_name}</strong>
                           <div className=""> {elmt.Email}</div>
                           <div className=" mt-3"> <CollapsibleText1 text={elmt.Biography} /> </div>
+                          <div className=" mt-3"> <span style={{ backgroundColor: "#F3E5DB"}} className="btn btn-outline-warning">Details</span> </div>
                         </div>
                     </div>
                    
@@ -164,10 +168,10 @@ const HandleLikes = async(c_id, like_status)=>{
   
 {/* popProfilInfo
  */}
-  <Example show={openInfoDetails} setShow={setopenInfoDetails} data={infoDetails}> 
-</Example> 
+  <Example show={openInfoDetails} setShow={setopenInfoDetails} data={infoDetails}/> 
 
-              <Typography
+
+              {/* <Typography
                 variant="subtitle1"
                 sx={{
                   pt: 1,
@@ -175,20 +179,13 @@ const HandleLikes = async(c_id, like_status)=>{
                   alignItems: 'center'
                 }}
               >
-                {/* <ScheduleTwoToneIcon
-                sx={{
-                  mr: 0.5
-                }}
-                fontSize="small"
-              />
-              {formatDistance(subHours(new Date(), 115), new Date(), {
-                addSuffix: true
-              })} */}
+              
                 <span>
                   <i style={{ backgroundColor: "", margin: "5px" }} className={`bi bi-hand-thumbs-up${"-fill"}`}></i>
                   <i style={{ backgroundColor: "", margin: "5px" }} className={`bi bi-hand-thumbs-down${"-fill"}`}></i>
                 </span>
-              </Typography>
+              </Typography> */}
+              <Liker/>
 
             </Box>
           </Box>
@@ -218,7 +215,7 @@ const HandleLikes = async(c_id, like_status)=>{
             >
              -
             </CardWrapperPrimary></Slide> */}
-      <Typography
+      {/* <Typography
         variant="subtitle1"
         sx={{
           pt: 1,
@@ -231,7 +228,8 @@ const HandleLikes = async(c_id, like_status)=>{
           <i style={{ backgroundColor: "", margin: "5px" }} className={`bi bi-hand-thumbs-up${"-fill"}`}></i>
           <i style={{ backgroundColor: "", margin: "5px" }} className={`bi bi-hand-thumbs-down${""}`}></i>
         </span>
-      </Typography>
+      </Typography> */}
+      {/* <Liker/> */}
     </Box>
     <Avatar
       variant="rounded"

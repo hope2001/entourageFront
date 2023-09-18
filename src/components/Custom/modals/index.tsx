@@ -149,7 +149,6 @@
 
 
 import Link from 'next/link';
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -174,7 +173,7 @@ function Example({data, show, setShow}) {
         
       >
         <Modal.Header className="bg-warnin border-0" closeButton>
-          <Modal.Title>Profil Infos</Modal.Title>
+          <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container-fluid" style={{fontSize:"14px"}}>

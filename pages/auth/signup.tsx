@@ -1,19 +1,19 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
+// import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm, SubmitHandler } from "react-hook-form";
-import router, { useRouter } from 'next/router';
+import  { useRouter } from 'next/router';
 import { AuthSys } from '@/Services/Requests/auth';
 import { Tokenn } from '@/Services/Helpers/TokenLogic';
 import { toast } from 'react-toastify';
@@ -47,7 +47,7 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const router = useRouter();
 
-  const { register, handleSubmit,reset, watch, formState: { errors } } = useForm<Inputs>();
+  const { register, handleSubmit,reset, formState: { errors } } = useForm<Inputs>();
   // const onSubmit: SubmitHandler<Inputs> = (data) => {
   //   console.log(data);
   // }
@@ -60,11 +60,10 @@ export default function SignUp() {
           name: data.name,
           email: data.email,
           password: data.password,
-          bio: data.bio,
-          location: data.location
+          bio: " -- ",
+          location: " -- "
         }
 
-      console.log(body);
       try{
          const response = await AuthSys.Register(body)
 
@@ -92,16 +91,6 @@ export default function SignUp() {
     }else{
         alert('Tous les champs sont obligatoires')
     }
-  };
-
-
-  const handleSubmit1 = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = event.currentTarget;
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
 
   return (
@@ -148,7 +137,7 @@ export default function SignUp() {
             <Typography component="h1" variant="h5">
               Register
             </Typography>
-            <Box component="div" noValidate  sx={{ mt: 1 }}>
+            <Box component="div"   sx={{ mt: 1 }}>
             <form className="" onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 margin="normal"
@@ -159,7 +148,7 @@ export default function SignUp() {
                 {...register("name", { required: true })}
                 autoComplete="Manuel Kokoui"
                 autoFocus
-              />
+              />{errors.name && <span>Name is required</span>}
               <TextField
                 margin="normal"
                 required
@@ -169,7 +158,7 @@ export default function SignUp() {
                 {...register("email", { required: true })}
                 autoComplete="email"
                 autoFocus
-              />
+              />{errors.email && <span>Email is required</span>}
               <TextField
                 margin="normal"
                 required
@@ -179,8 +168,10 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
-              <TextField
+                error={errors.password ? true : false}
+              />{errors.password && <span>Password is required</span>}
+              
+              {/* <TextField
                 margin="normal"
                 required
                 fullWidth
@@ -199,11 +190,11 @@ export default function SignUp() {
                 type="location"
                 id="location"
                 autoComplete="current-location"
-              />
-              <FormControlLabel
+              /> */}
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth
@@ -215,11 +206,11 @@ export default function SignUp() {
                 Sign Up
               </Button>
               <Grid className='mt-5' container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link href="" variant="body2">
                     Forgot password?
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link href="/auth/signin" variant="body2">
                     {"You have an account? Login"}

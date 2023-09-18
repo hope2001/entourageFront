@@ -9,14 +9,14 @@ import {
   styled,
   Divider,
   useTheme,
-  Button,
+  // Button,
   lighten,
   darken
 } from '@mui/material';
 
 import SidebarMenu from './SidebarMenu';
-import Logo from 'src/components/LogoSign';
-import Image from 'next/image';
+// import Logo from 'src/components/LogoSign';
+// import Image from 'next/image';
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `

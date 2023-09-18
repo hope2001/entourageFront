@@ -1,7 +1,7 @@
 // context/state.js
 import React, { createContext, useState } from "react";
 
-export const ChatContext = createContext<any>();
+export const ChatContext = createContext();
 
 export const ChatWrapper = ({ children }) => {
   const [newChat, setnewChat] = useState(false);

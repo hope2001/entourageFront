@@ -3,7 +3,7 @@ import {
     Box,
     Card,
     Container,
-    Button,
+    // Button,
     styled
   } from '@mui/material';
   import type { ReactElement } from 'react';
@@ -12,7 +12,7 @@ import {
   import Link from 'src/components/Link';
   import Head from 'next/head';
   
-  import Logo from 'src/components/LogoSign';
+  // import Logo from 'src/components/LogoSign';
   import Hero from 'src/content/Overview/Hero';
   
   const HeaderWrapper = styled(Card)(
@@ -36,14 +36,16 @@ import {
   
   function Overview() {
     return (
-      <OverviewWrapper>
+      <OverviewWrapper sx={{bgcolor:"#F3E5DB"}}>
         <Head>
-          <title>Tokyo Free White NextJS Typescript Admin Dashboard</title>
+          <title>Entourage</title>
         </Head>
-        <HeaderWrapper>
-          <Container maxWidth="lg">
+        <HeaderWrapper style={{backgroundColor:"#241814", borderRadius:"0"}}>
+          <Container maxWidth="lg" >
             <Box display="flex" alignItems="center">
-              <Logo />
+              {/* <Logo /> */}
+              <img src="/static/images/logo/logo-light1.png" alt="logo" style={{width:"15rem"}}  className=" " />
+              {/* <img src="/static/images/logo/logodark.svg" alt="logo" style={{width:"15rem"}}  className=" " /> */}
               <Box
                 display="flex"
                 alignItems="center"
@@ -52,14 +54,12 @@ import {
               >
                 <Box />
                 <Box>
-                  <Button
-                    component={Link}
-                    href="/dashboards/crypto"
-                    variant="contained"
-                    sx={{ ml: 2 }}
-                  >
-                    Live Preview
-                  </Button>
+                 
+                  <div className="d-flex gap-3">
+
+                  <Link href="/auth/signup" style={{backgroundColor:"#E98B33", fontWeight:"bold"}} className="text-light btn btn-warning fwt-bold">Register</Link>
+                  <Link href="/auth/signin" style={{backgroundColor:"#E98B33", fontWeight:"bold"}} className="text-light btn btn-warning fwt-bold">Login</Link>
+                  </div>
                 </Box>
               </Box>
             </Box>
@@ -70,11 +70,11 @@ import {
           <Typography textAlign="center" variant="subtitle1">
             Crafted by{' '}
             <Link
-              href="https://bloomui.com"
+              href=""
               target="_blank"
               rel="noopener noreferrer"
             >
-              BloomUI.com
+              Entourage Team
             </Link>
           </Typography>
         </Container>

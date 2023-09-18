@@ -4,12 +4,13 @@ import axios from 'axios'
 // import { toast } from 'react-toastify';
 import { toast } from 'react-toastify';
 import { Tokenn } from '../Helpers/TokenLogic';
+import { back_api } from '../enviro';
 
 // import { useRouter } from 'next/navigation'
 
 // Paramétrage de base d'axios
 const Axios = axios.create({
-    baseURL: "http://localhost:8000/"
+    baseURL: back_api
 })
 // const router = useRouter();
 
