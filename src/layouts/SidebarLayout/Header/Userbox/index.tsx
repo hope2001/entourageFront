@@ -24,6 +24,7 @@ import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import { useFetchUserData } from '@/Services/Query/userQuery';
 import { Tokenn } from '@/Services/Helpers/TokenLogic';
+import { useRouter } from 'next/router';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -61,6 +62,7 @@ const UserBoxDescription = styled(Typography)(
 );
 
 function HeaderUserbox() {
+  const router = useRouter()
   const user = {
     name: 'Catherine Pike',
     avatar: '/static/images/avatars/1.jpg',
@@ -86,7 +88,8 @@ function HeaderUserbox() {
 const handleLogout = () => {
   Tokenn.dropToken()
     refetch();
-    window.location.reload();
+    // window.location.reload();
+    router.push("/auth/signin")
   }
   
   return (

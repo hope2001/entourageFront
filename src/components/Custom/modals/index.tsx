@@ -188,7 +188,7 @@ function Example({data, show, setShow}) {
               <div className="col-md-4 d-flex flex-column"> <span> Area of Expertise </span> <strong>{data?.Area_of_Expertise ||"N.A"}</strong>  </div>
               </div>
               <div className="row p-2 mt-3">
-                  <strong className="">Skills</strong>
+                  <strong className="">Biography</strong>
                 <div className="col">
                   <div className="">
                   {data?.Biography ||"N.A"}
