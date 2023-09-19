@@ -16,3 +16,6 @@ yarn-error.log*
 
 # Next.js
 /.next
+
+#pm2 ecosystem
+ecosystem.config.js
