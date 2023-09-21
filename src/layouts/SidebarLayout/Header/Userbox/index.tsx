@@ -100,7 +100,7 @@ const handleLogout = () => {
           <UserBoxText>
             <UserBoxLabel variant="body1">{userdata?.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {userdata?.location}
+              {userdata?.email}
             </UserBoxDescription>
           </UserBoxText>
         </Hidden>
@@ -126,7 +126,7 @@ const handleLogout = () => {
           <UserBoxText>
             <UserBoxLabel variant="body1">{userdata?.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {userdata?.location}
+              {userdata?.email}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>

@@ -54,7 +54,7 @@ const CardWrapperSecondary = styled(Card)(
 );
 
 
-function ChatContent({ converse,  chatLoad}) {
+function ChatContent({ converse,  chatLoad, query}) {
 // function ChatContent({ converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError }) {
   const user = {
     name: 'Catherine Pike',
@@ -246,6 +246,36 @@ function ChatContent({ converse,  chatLoad}) {
 
 }
 
+
+{
+  (converse && chatLoad)&&   <Box
+  display="flex"
+  alignItems="flex-start"
+  justifyContent="flex-end"
+  py={3}
+>
+  <Box
+    display="flex"
+    alignItems="flex-end"
+    flexDirection="column"
+    justifyContent="flex-end"
+    mr={2}
+  ><Slide direction="up" in={true} mountOnEnter unmountOnExit>
+      <CardWrapperPrimary style={{ backgroundColor: "transparent", border: "1px solid gray", color: "gray", padding: "12px" }}> {query}</CardWrapperPrimary></Slide>
+
+  </Box>
+  <Avatar
+    variant="rounded"
+    sx={{
+      width: 50,
+      height: 50
+    }}
+    alt={user.name}
+    src={user.avatar}
+  />
+</Box>
+}
+
 {
   (converse && chatLoad) && <Slide direction="up" in={true} mountOnEnter unmountOnExit>
     <Box
@@ -293,6 +323,7 @@ function ChatContent({ converse,  chatLoad}) {
     </Box>
   </Slide>
 }
+
 {
   (!chatLoad && converse.length < 1) && <div className="container my-5 ">
     <div className="row gap-4 justify-content-center my-5">

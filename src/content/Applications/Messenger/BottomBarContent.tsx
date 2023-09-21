@@ -35,7 +35,7 @@ const MessageInputWrapper = styled(InputBase)(
 
 
 
-function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError,inter, setinter}) {
+function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError,inter, setinter, setquery}) {
   // const {data: thisuser, isLoading, isError} = useFetchUserData()
   // const { discussId,setdiscussId } = useContext(ChatContext)
 
@@ -106,6 +106,7 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
       try {
        const query = data.query
         setchatLoad(true)
+        setquery(data.query)
         reset()
         
         // console.log(inter);
@@ -134,7 +135,7 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
         reset()
         setError(null); // Clear any previous errors
       } catch (err) {
-        toast("Something went wrong server error",{
+        toast("Something went wrong",{
           type: "error",
           autoClose: 5000,
           position: "top-right",
@@ -157,7 +158,9 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
         // background: theme.colors.alpha.white[50],
         display: 'flex',
         alignItems: 'center',
-        p: 2
+        p: 2,
+        width: '85%',
+        margin: '0 auto',
       }}
     > <span style={{backgroundColor: "transparent", display: "flex", width:"100%", borderRadius:"10px", border:"1px #5A4A40 solid"}}>
       <Box  flexGrow={1} display="flex" alignItems="center">

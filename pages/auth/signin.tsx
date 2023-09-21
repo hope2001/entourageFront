@@ -75,7 +75,7 @@ export default function SignIn() {
  
 
       
-            if(error.response.status === 401)
+            if(error.response?.status === 401)
             {
                toast("Invalid credentials", {
                 hideProgressBar: false,
@@ -126,7 +126,7 @@ export default function SignIn() {
               flexDirection: 'column',
               alignItems: 'center',
               borderRadius: "20px",
-              padding: 10,
+              padding: 5,
               
             }}
             style={{justifyContent:"center", display:"flex"}}
@@ -135,7 +135,8 @@ export default function SignIn() {
               <LockOutlinedIcon />
               <img src="/static/images/logo/logo-light1.png"/>
             </Avatar> */}
-              <img src="/static/images/logo/logodark.svg"/>
+            <Link className="my-3 d-flex text-center justify-content-center" href="/"><img className="w-75" src="/static/images/logo/logodark.svg"/></Link>
+              
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>

@@ -81,7 +81,7 @@ export default function SignUp() {
        } catch (error) {
 
          console.error('------->',error);
-         toast(error.message, {
+         toast(error.response.data.detail || error.message, {
              hideProgressBar: false,
              autoClose: 4000,
              type: "error",
@@ -123,7 +123,7 @@ export default function SignUp() {
               flexDirection: 'column',
               alignItems: 'center',
               borderRadius: "20px",
-              padding: 10,
+              padding: 5,
               // width:"60%",
               
             }}
@@ -133,7 +133,8 @@ export default function SignUp() {
               <LockOutlinedIcon />
               <img src="/static/images/logo/logo-light1.png"/>
             </Avatar> */}
-              <img src="/static/images/logo/logodark.svg"/>
+              <Link className="my-3 d-flex text-center justify-content-center" href="/"><img className="w-75" src="/static/images/logo/logodark.svg"/></Link>
+              
             <Typography component="h1" variant="h5">
               Register
             </Typography>

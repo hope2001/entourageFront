@@ -59,11 +59,13 @@ function Sidebar() {
             <Box
               mx={2}
               sx={{
-                width: 52
+                width: 52,
+                
+                // overflow:"hidden",
               }}
             >
               {/* <Logo /> */}
-              <img src="/static/images/logo/logo-light1.png"/>
+              <img  src="/static/images/logo/logo-light1.png"/>
             </Box>
           </Box>
           <Divider

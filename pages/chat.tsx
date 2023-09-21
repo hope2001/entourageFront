@@ -99,6 +99,7 @@ const handleDrawerToggle = () => {
   const [converse, setConverse] = useState([]);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
+  const [query, setquery] = useState(null);
   const [chatLoad, setchatLoad] = useState(false);
   const [inter, setinter] = useState([]);
   useEffect(() => {
@@ -110,6 +111,7 @@ const handleDrawerToggle = () => {
     setError(null)
     setError(false)
     setinter([])
+    setquery(null)
   }, [newChat])
   
   if(isLoadingCurrentUser && currenntuser)
@@ -172,12 +174,12 @@ const handleDrawerToggle = () => {
           </ChatTopBar> */}
           <Box flex={1}>
             <Scrollbar>
-              <ChatContent converse={converse}  chatLoad={chatLoad} />
+              <ChatContent converse={converse}  chatLoad={chatLoad} query={query} />
             </Scrollbar>
           {/* <BottomBarContent /> */}
           </Box>
           {/* <Divider /> */}
-          <BottomBarContent converse={converse} setConverse={setConverse} chatLoad={chatLoad} setchatLoad={setchatLoad} response={response} setResponse={setResponse} error={error} setError={setError} inter={inter} setinter={setinter}/>
+          <BottomBarContent converse={converse} setConverse={setConverse} chatLoad={chatLoad} setchatLoad={setchatLoad} response={response} setResponse={setResponse} error={error} setError={setError} inter={inter} setinter={setinter} setquery={setquery}  />
         </ChatWindow>
       </RootWrapper>
     </div>

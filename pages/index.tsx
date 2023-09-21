@@ -44,7 +44,7 @@ function Overview() {
         <Container maxWidth="lg" >
           <Box display="flex" alignItems="center">
             {/* <Logo /> */}
-            <img src="/static/images/logo/logo-light1.png" alt="logo" style={{width:"15rem"}}  className=" " />
+            <img src="/static/images/logo/logo-light1.png" alt="logo" style={{width:"13rem"}}  className=" " />
             {/* <img src="/static/images/logo/logodark.svg" alt="logo" style={{width:"15rem"}}  className=" " /> */}
             <Box
               display="flex"
@@ -53,14 +53,14 @@ function Overview() {
               flex={1}
             >
               <Box />
-              <Box>
+              {/* <Box> */}
                
                 <div className="d-flex gap-3">
 
                 <Link href="/auth/signup" style={{backgroundColor:"#E98B33", fontWeight:"bold"}} className="text-light btn btn-warning fwt-bold">Register</Link>
                 <Link href="/auth/signin" style={{backgroundColor:"#E98B33", fontWeight:"bold"}} className="text-light btn btn-warning fwt-bold">Login</Link>
                 </div>
-              </Box>
+              {/* </Box> */}
             </Box>
           </Box>
         </Container>

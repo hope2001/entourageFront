@@ -255,7 +255,7 @@ const classif = ()=>{
   return (
     <>
       <MenuWrapper>
-        <List component="div">
+        <List component="div" >
           <SubMenuWrapper>
           {/* <div>
       <h2>Today</h2>
@@ -279,6 +279,8 @@ const classif = ()=>{
         ))}
       </ul>
     </div> */}
+    <div className="d-flex flex-column rounded bg-dark ">
+      <div className="btn btn-secondary ">Coming soon <i className="bi bi-arrow-down"></i> </div>
            { 
             [{date:"Earlier", list:earlierResults},{date:"Yesterday", list:yesterdayResults},{date:"Today", list:todayResults}].map((item,index)=>(
               <List key={index} component="div">
@@ -319,7 +321,7 @@ const classif = ()=>{
               </Collapse>
             </List>
             ))
-            }
+            }</div>
             <div onClick={()=> setnewChat(!newChat)}  className="w-100 p-2 btn btn-outline-warning mt-5"> 
             <span> <i className="bi bi-plus-circle"></i> New Chat</span>
             </div>

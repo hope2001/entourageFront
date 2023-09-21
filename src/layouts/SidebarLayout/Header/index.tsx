@@ -44,6 +44,7 @@ function Header() {
 
   return (
     <HeaderWrapper
+    
       display="flex"
       alignItems="center"
       sx={{
@@ -59,7 +60,7 @@ function Header() {
               )}, 0px 5px 22px -4px ${alpha(
                 theme.colors.alpha.black[100],
                 0.1
-              )}`
+              )}`, backgroundColor:""
       }}
     >
       <Stack
