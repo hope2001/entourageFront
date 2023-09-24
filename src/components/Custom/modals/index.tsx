@@ -148,10 +148,10 @@
 // export default Modals;
 
 
-import Link from 'next/link';
-import Button from 'react-bootstrap/Button';
+// import Link from 'next/link';
+// import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 
 
@@ -160,21 +160,21 @@ function Example({data, show, setShow}) {
 
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
-  async function copyTextToClipboard(text) {
-    // alert(text)
-    if ('clipboard' in navigator) {
-      toast(text+'       Copied to clipboard!',
-      {autoClose: 2000, type: 'info'})
-      return await navigator.clipboard.writeText(text);
-    } else {
-      toast(text+'    Copied to clipboard!',
-      {autoClose: 2000, type: 'info'})
-      return document.execCommand('copy', true, text);
-    }
-    // toast('Copied to clipboard!',
-    //   {autoClose: 2000, type: 'success'})
-    //   alert(text)
-  }
+  // async function copyTextToClipboard(text) {
+  //   // alert(text)
+  //   if ('clipboard' in navigator) {
+  //     toast(text+'       Copied to clipboard!',
+  //     {autoClose: 2000, type: 'info'})
+  //     return await navigator.clipboard.writeText(text);
+  //   } else {
+  //     toast(text+'    Copied to clipboard!',
+  //     {autoClose: 2000, type: 'info'})
+  //     return document.execCommand('copy', true, text);
+  //   }
+  //   // toast('Copied to clipboard!',
+  //   //   {autoClose: 2000, type: 'success'})
+  //   //   alert(text)
+  // }
   return (
     <>
       {/* <span  onClick={handleShow}>
