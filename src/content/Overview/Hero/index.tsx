@@ -115,12 +115,7 @@ function Hero() {
             color="text.secondary"
             fontWeight="normal"
           >
-          Entourage is an AI-powered platform
- connecting MBA students with the
- relevant alumni and professionals
- within their community so that they
- can achieve their professional goals
- with no stress and no time wasted
+          An AI platform assisting MBA students to find the most relevant profiles within their school and the most appropriate resources to achieve their career goals with no stress and no time wasted
           </TypographyH2>
           <Button
             component={Link}

@@ -279,7 +279,7 @@ const classif = ()=>{
         ))}
       </ul>
     </div> */}
-    <div className="d-flex flex-column rounded bg-dark ">
+    <div aria-disabled className="d-flex flex-column rounded bg-dark ">
       <div className="btn btn-secondary ">Coming soon <i className="bi bi-arrow-down"></i> </div>
            { 
             [{date:"Earlier", list:earlierResults},{date:"Yesterday", list:yesterdayResults},{date:"Today", list:todayResults}].map((item,index)=>(

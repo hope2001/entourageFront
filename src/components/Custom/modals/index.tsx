@@ -187,6 +187,7 @@ function Example({data, show, setShow}) {
         backdrop="static"
         keyboard={false}
         size="lg"
+        bgColor="red"
         
       >
         <Modal.Header className="bg-warnin border-0" closeButton>
@@ -196,38 +197,37 @@ function Example({data, show, setShow}) {
           {/* {JSON.stringify(data)} */}
           <div className="container-fluid" style={{fontSize:"14px"}}>
             <div className="row my-3">
-              <h4 className="col-md-12 text-center"> {data?.Full_name} <i className="bi bi-linkedin text-primary"></i> </h4>
+              <h4 className="col-md-12 text-center"> {data?.Full_name}  <a rel="noreferrer" href={data?.Linkedin} target="_blank"><i className="bi bi-linkedin text-primary"></i></a>  </h4>
+            { data?.Email? <h6 className="col-md-12 text-center text-dark ">   <a style={{textDecoration:"none", color:"gray"}} rel="noreferrer" href={'mailto:'+data?.Email} target="_blank"> {data?.Email} </a>  </h6> : <span></span>}
               </div>
-            <div className="row text-cente ">
+            <div className="row text-cente p-2">
               <div className="col-md-4 d-flex flex-column"> <span>Country</span> <strong>{data?.Country ||"N.A"}</strong>  </div>
+              
               <div className="col-md-4 d-flex flex-column"> 
-              <span>Email</span> 
-             {data?.Email.length>1 ?  <span > 
-                <span className="btn btn-sm btn-outline-dark "> 
-                <i className="bi bi-envelope-at-fill"></i> 
-                { <Link style={{color:"white"}}  href={`mailto:${data?.Email}`}> Email</Link> ||"N.A"}</span> 
-                <i onClick={()=> copyTextToClipboard(data.Email)} className="bi bi-copy btn btn-dark btn-sm"></i> 
-                </span>:
+              <span>Cohort</span> 
+             {data?.Cohort.length>1 ?  <strong > 
+                {data.Cohort}
+                </strong>:
                 <span>N.A</span> }
               </div>
-              {/* <div className="col-md-4 d-flex flex-column"> <span>Email</span> <span>{ <Link className="btn btn-dark" href={`mailto:${data?.Email}`}> {data?.Email }</Link> ||"N.A"} </span>  </div> */}
+
               <div className="col-md-4 d-flex flex-column"> 
-             <span>LinkedIn</span> 
-             {data?.Linkedin.length>1 ? <span> 
-                {<i className="btn btn-sm btn-outline-primary bi bi-linkedin">  
-                <a className="text-dark"  href={data?.Linkedin}>  LinkedIn profile</a></i>  ||"N.A"} 
-                <i onClick={()=> copyTextToClipboard(data.Linkedin)} className="bi bi-copy btn btn-dark btn-sm"></i> 
-                </span> : <span>N.A</span> } 
-                </div>
+              <span>Postion</span> 
+             {data?.Position.length>1 ?  <strong > 
+                {data.Position}
+                </strong>:
+                <span>N.A</span> }
+              </div>
+
+
               {/* <div className="col-md-4 d-flex flex-column"> <span>LinkedIn</span> <span> {<Link className="btn btn-primary" href={data?.Linkedin}> <i className="bi bi-linkedin"></i> {data?.Linkedin ||"N.A"}</Link> ||"N.A"} </span>  </div> */}
               <div className="my-2"></div>
-              <div className="col-md-4 d-flex flex-column"> <span> Fonction </span> <strong>{data?.Post ||"N.A"}</strong>  </div>
-              <div className="col-md-6 d-flex flex-column"> <span> Area of Expertise </span> <strong>{data?.Area_of_Expertise ||"N.A"}</strong>  </div>
+              <div className="col-md-8 d-flex flex-column"> <span> Area of Expertise </span> <strong>{data?.Area_of_Expertise ||"N.A"}</strong>  </div>
               </div>
               <div className="row p-2 my-4">
-                  <strong className="">Biography</strong>
+                  <strong className="">Bio</strong>
                 <div className="col ">
-                  <div style={{ whiteSpace: 'break-spaces' }} className="">
+                  <div style={{ whiteSpace: 'break-spaces', lineHeight: '1.2rem', textAlign:"justify" }} className="">
                   {data?.Biography ||"N.A"}
                   </div>
                 </div>
