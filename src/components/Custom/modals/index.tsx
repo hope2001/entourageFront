@@ -194,7 +194,7 @@ function Example({data, show, setShow}) {
           <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body className="">
-          {JSON.stringify(data)}
+          {/* {JSON.stringify(data)} */}
           <div className="container-fluid" style={{fontSize:"14px"}}>
             <div className="row my-3">
               <h4 className="col-md-12 text-center"> {data?.Full_name}  <a rel="noreferrer" href={data?.Linkedin} target="_blank"><i className="bi bi-linkedin text-primary"></i></a>  </h4>
