@@ -15,11 +15,16 @@ let ask = (d_id, message , answer) => {
     return Axios.post('/message/prompt?discussion_id='+d_id+'&message='+message+'&answer='+answer)
     // return Axios.post('/message/prompt?json_data='+json_data+"&discussion_id="+discussion_id+"&message="+message)
 }
-let ask1 = (message , answer) => {
-return Axios.post('/converse/create',{query:message, answer:answer})
+let ask1 = (message , answer,chat_id) => {
+    return Axios.post('/converse/create',{query:message, answer:answer, chat_id:chat_id})
 }
-let setlike = (c_id , like_status) => {
-    return Axios.post('converse/set_like',{converse_id:c_id, is_liked:like_status})
+
+let ask2 = (data) => {
+    // alert(JSON.stringify(data))
+    return Axios.post('/converse/create', data)
+}
+let setlike = (c_id , like_status, reason) => {
+    return Axios.put('converse/set_like',{converse_id:c_id, is_liked:like_status, reason:reason})
 }
 
 /** 
@@ -27,7 +32,7 @@ let setlike = (c_id , like_status) => {
  * @returns {Promise}
  */
 let getConverse = () => {
-    return Axios.get('/chat/') 
+    return Axios.get('/converse/') 
 }
 /** 
  * @param {object} udata
@@ -45,5 +50,5 @@ let userLogedData = () => {
 }
 
 export const ChatRequest = {
-    ask, newConverse,getConverse,ask1,setlike
+    ask, newConverse,getConverse,ask1,ask2,setlike
 }

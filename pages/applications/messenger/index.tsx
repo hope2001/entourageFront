@@ -88,7 +88,7 @@ function ApplicationsMessenger() {
     refetch
 } = useFetchUserData();
 
-const { newChat } = useContext(ChatContext)
+const { newChat,fromHistory,setfromHistory,changeHistory } = useContext(ChatContext)
 const theme = useTheme();
 const [mobileOpen, setMobileOpen] = useState(false);
 // if(isLoadingCurrentUser && currenntuser)return <div className="">Loading</div>
@@ -102,6 +102,30 @@ const handleDrawerToggle = () => {
   const [query, setquery] = useState(null);
   const [chatLoad, setchatLoad] = useState(false);
   const [inter, setinter] = useState([]);
+  const [chat_id, setchat_id] = useState("null");
+
+
+
+  useEffect(() => {
+    setfromHistory([])
+      setConverse([]);
+  }, [changeHistory])
+
+  
+  useEffect(() => {
+    let list = []
+    fromHistory.map((item) =>{
+      // alert(JSON.stringify(item))
+      list.push({who: "human", data: item.query}, {who: "ia", data: JSON.parse(item.answer)})
+      setchat_id(item.user_chat_id)
+      setConverse([...list])
+      // setConverse([...converse, {who: "human", data: item.query}, {who: "ia", data: JSON.parse(item.answer)}])
+    });
+  }, [fromHistory])
+
+
+
+
   useEffect(() => {
     refetch()
   }, [currenntuser])
@@ -112,6 +136,7 @@ const handleDrawerToggle = () => {
     setError(false)
     setinter([])
     setquery(null)
+    setchat_id("null")
   }, [newChat])
   
   if(isLoadingCurrentUser && currenntuser)
@@ -175,11 +200,12 @@ const handleDrawerToggle = () => {
           <Box flex={1}>
             <Scrollbar>
               <ChatContent converse={converse}  chatLoad={chatLoad} query={query} />
+              {/* {JSON.stringify(fromHistory)} */}
             </Scrollbar>
           {/* <BottomBarContent /> */}
           </Box>
           {/* <Divider /> */}
-          <BottomBarContent converse={converse} setConverse={setConverse} chatLoad={chatLoad} setchatLoad={setchatLoad} response={response} setResponse={setResponse} error={error} setError={setError} inter={inter} setinter={setinter} setquery={setquery}  />
+          <BottomBarContent chat_id={chat_id} setchat_id={setchat_id} converse={converse} setConverse={setConverse} chatLoad={chatLoad} setchatLoad={setchatLoad} response={response} setResponse={setResponse} error={error} setError={setError} inter={inter} setinter={setinter} setquery={setquery}  />
         </ChatWindow>
       </RootWrapper>
     </div>

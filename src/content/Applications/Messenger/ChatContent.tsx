@@ -138,9 +138,13 @@ function ChatContent({ converse,  chatLoad, query}) {
                   <div className="row">
                     <div className="col-md-12 mb-3 p-4" style={{ backgroundColor: "#F3E5DB", borderRadius: "10px", color: "gray" }}>
                     <CollapsibleText text={conver.data.bot_response} />
+                    {/* {JSON.stringify(conver)} */}
                     </div>
+                    {/* {JSON.stringify(conver.id)} */}
                   </div>
+                  <Liker id={conver.id} />
                 </div>
+
 
             
       {/* <CardWrapperPrimary  className="mb-3 " style={{ backgroundColor: "#F3E5DB", borderRadius: "10px", color: "gray" }}>
@@ -153,8 +157,8 @@ function ChatContent({ converse,  chatLoad, query}) {
                   conver.data.info_profil?.map((elmt, index) => (
                     <Slide key={index} direction="left" in={true} mountOnEnter unmountOnExit>
                      
-                       <div onClick={()=> popProfilInfo(elmt)} className="container my-2 "> 
-                        <div className="row p-2 border" style={{ backgroundColor: "#F3E5DB", borderRadius: "10px", color: "gray"}}>
+                       <div onClick={()=> popProfilInfo(elmt)} className="container my-2 text-dark"> 
+                        <div className="row p-2 border" style={{ backgroundColor: "#F3E5DB", borderRadius: "10px", color: "black"}}>
                           <strong className=""> {elmt.Full_name}</strong>
                           <div className=""> {elmt.Email}</div>
                           <div className=" mt-3"> <CollapsibleText1 text={elmt.Biography} /> </div>
@@ -185,7 +189,7 @@ function ChatContent({ converse,  chatLoad, query}) {
                   <i style={{ backgroundColor: "", margin: "5px" }} className={`bi bi-hand-thumbs-down${"-fill"}`}></i>
                 </span>
               </Typography> */}
-              <Liker/>
+              {/* <Liker/> */}
 
             </Box>
           </Box>

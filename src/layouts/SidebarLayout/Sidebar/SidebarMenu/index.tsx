@@ -1,4 +1,4 @@
-import { useContext, useState,useEffect } from 'react';
+import { useContext, useState } from 'react';
 // import { useRouter } from 'next/router';
 
 import {
@@ -36,15 +36,15 @@ import {
 
 
 
-import Collapse from '@mui/material/Collapse';
+// import Collapse from '@mui/material/Collapse';
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 // import DraftsIcon from '@mui/icons-material/Drafts';
 // import SendIcon from '@mui/icons-material/Send';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+// import ExpandLess from '@mui/icons-material/ExpandLess';
+// import ExpandMore from '@mui/icons-material/ExpandMore';
+// import ListItemButton from '@mui/material/ListItemButton';
+// import ListItemIcon from '@mui/material/ListItemIcon';
+// import ListItemText from '@mui/material/ListItemText';
 // import StarBorder from '@mui/icons-material/StarBorder';
 import { useFetchConverse } from '@/Services/Query/chatQuery';
 // import { log } from 'console';
@@ -205,123 +205,102 @@ function SidebarMenu() {
   // const router = useRouter();
   // const currentRoute = router.pathname;
 
-  const [open, setOpen] = useState("Today");
+  const [more, setMore] = useState(false);
 
   // const handleClick = () => {
   //   setOpen(!open);
   // };
 
-  const [todayResults, setTodayResults] = useState([]);
-  const [yesterdayResults, setYesterdayResults] = useState([]);
-  const [earlierResults, setEarlierResults] = useState([]);
+  // const [todayResults, setTodayResults] = useState([]);
+  // const [yesterdayResults, setYesterdayResults] = useState([]);
+  // const [earlierResults, setEarlierResults] = useState([]);
 
-const classif = ()=>{
-   // Assuming 'results' is the array you want to classify
-   const results =  Converses ;
+// const classif = ()=>{
+//    // Assuming 'results' is the array you want to classify
+//    const results =  Converses ;
 
-   const today = new Date();
-   today.setHours(0, 0, 0, 0);
+//    const today = new Date();
+//    today.setHours(0, 0, 0, 0);
 
-   const yesterday = new Date(today);
-   yesterday.setDate(yesterday.getDate() - 1);
+//    const yesterday = new Date(today);
+//    yesterday.setDate(yesterday.getDate() - 1);
 
-   const todayResults = [];
-   const yesterdayResults = [];
-   const earlierResults = [];
+//    const todayResults = [];
+//    const yesterdayResults = [];
+//    const earlierResults = [];
 
-   results?.forEach(result => {
-     const resultDate = new Date(result.date);
-     resultDate.setHours(0, 0, 0, 0);
+//   results?.forEach(result =>{
+//     console.log(result);
+    
+//     const resultDate = new Date(result[result.lenght -1]?.created_at);
+//     resultDate.setHours(0, 0, 0, 0);
+    
+//     if (+resultDate === +today) {
+//       todayResults.push(result);
+//     } else if (+resultDate === +yesterday) {
+//       yesterdayResults.push(result);
+//     } else if (+resultDate < +yesterday) {
+//       earlierResults.push(result);
+//     }
+//   }
+//     )
+    
+//    setTodayResults(todayResults);
+//    setYesterdayResults(yesterdayResults);
+//    setEarlierResults(earlierResults);
+// }
+//   useEffect(() => {
+//     classif()
+//   },[Converses]);
 
-     if (+resultDate === +today) {
-       todayResults.push(result);
-     } else if (+resultDate === +yesterday) {
-       yesterdayResults.push(result);
-     } else if (+resultDate < +yesterday) {
-       earlierResults.push(result);
-     }
-   });
 
-   setTodayResults(todayResults);
-   setYesterdayResults(yesterdayResults);
-   setEarlierResults(earlierResults);
+  // const { newChat, setnewChat, fromHistory, setfromHistory } = useContext(ChatContext)
+  const { newChat, setnewChat, setfromHistory,changeHistory, setchangeHistory } = useContext(ChatContext)
+const historyer =(item)=>{
+  // setnewChat(!newChat)
+  setchangeHistory(!changeHistory)
+  setfromHistory(item)
 }
-  useEffect(() => {
-    classif()
-  }, []);
-
-  const { newChat, setnewChat } = useContext(ChatContext)
 
   return (
     <>
       <MenuWrapper>
         <List component="div" >
           <SubMenuWrapper>
-          {/* <div>
-      <h2>Today</h2>
-      <ul>
-        {todayResults.map(result => (
-          <li key={result.id}>{result.title}</li>
-        ))}
-      </ul>
 
-      <h2>Yesterday</h2>
-      <ul>
-        {yesterdayResults.map(result => (
-          <li key={result.id}>{result.title}</li>
-        ))}
-      </ul>
+    <div aria-disabled className="d-flex flex-column rounded bg-dar ">
+      <div className="btn bt mb-2 " style={{backgroundColor: "black"}}>Chat History <i className="bi bi-arrow-down"></i> </div>
+      {/* {JSON.stringify(fromHistory)} */}
 
-      <h2>Earlier</h2>
-      <ul>
-        {earlierResults.map(result => (
-          <li key={result.id}>{result.title}</li>
-        ))}
-      </ul>
-    </div> */}
-    <div aria-disabled className="d-flex flex-column rounded bg-dark ">
-      <div className="btn btn-secondary ">Coming soon <i className="bi bi-arrow-down"></i> </div>
-           { 
-            [{date:"Earlier", list:earlierResults},{date:"Yesterday", list:yesterdayResults},{date:"Today", list:todayResults}].map((item,index)=>(
-              <List key={index} component="div">
 
-              <ListItemButton onClick={()=> setOpen(item.date)}>
-                <ListItemIcon>
-                  {/* <InboxIcon /> */}
-                  <i className="bi bi-calendar-check text-light"></i>
-                  
-                </ListItemIcon>
-                <ListItemText  primary={item.date} />
-                {open == item.date ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              <Collapse in={open == item.date} timeout="auto" unmountOnExit>
-                {
-                  item.list.length < 0 ? (
-                    <List component="div" disablePadding>
-                      <ListItemText primary="No results found" />
-                    </List>
-                  ) :
-                 item.list?.map((itemc,index1)=>
-               (
-                <List key={index1} component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemIcon>
-                      {/* <StarBorder /> */}
-                      <i className="bi bi-circle-square text-primary"></i>
-                    </ListItemIcon>
-                    <ListItemText primary={itemc.title} />
-                    <ListItemIcon>
-                      {/* <StarBorder /> */}
-                      <span style={{fontSize:"9px", backgroundColor:"#43332F"}} className=" rounded p-1 text-light"> {1} </span>
-                    </ListItemIcon>
-                  </ListItemButton>
-                </List>
-               )
-               )}
-              </Collapse>
-            </List>
+           {! more?
+            Converses?.slice(0, 5).map((item,index)=>(
+              <div onClick={()=> historyer(item)}  key={index} style={{listStyleType: "none", display:"flex"}}>
+                <i className="bi bi-chat-square-dots-fill mt-2"></i>
+                <span style={{cursor: "pointer"}} className="d-flex justify-content-between w-100 py-2 px-3 ">
+                {/* <i className="bi bi-circle-square text-primary"></i> */}
+              <span className=""> {item[item.length -1].query} </span>
+                <span style={{fontSize:"9px", backgroundColor:"#43332F"}} className=" rounded p-1 text-light align-self-center"> {item.length} </span>
+                </span>
+              </div>
+
+            )):
+            Converses?.map((item,index)=>(
+              <div onClick={()=> historyer(item)}  key={index} style={{listStyleType: "none", display:"flex"}}>
+                <span style={{cursor: "pointer"}} className="d-flex justify-content-between w-100 py-2 px-3 ">
+                {/* <i className="bi bi-circle-square text-primary"></i> */}
+              <span className=""> {item[item.length -1].query} </span>
+                <span style={{fontSize:"9px", backgroundColor:"#43332F"}} className=" rounded p-1 text-light align-self-center"> {item.length} </span>
+                </span>
+              </div>
+
             ))
-            }</div>
+           
+            }
+            { Converses?.length >5 &&((!more) ? <div onClick={()=> setMore(!more)} className="d-flex justify-content-center align-items-center mt-2 btn btn-warning"> View More</div> 
+            : <div onClick={()=> setMore(!more)} className="d-flex justify-content-center align-items-center mt-2 btn btn-warning"> View Less</div>
+            )}
+            </div>
             <div onClick={()=> setnewChat(!newChat)}  className="w-100 p-2 btn btn-outline-warning mt-5"> 
             <span> <i className="bi bi-plus-circle"></i> New Chat</span>
             </div>

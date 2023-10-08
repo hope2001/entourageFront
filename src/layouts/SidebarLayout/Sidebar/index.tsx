@@ -65,7 +65,7 @@ function Sidebar() {
               }}
             >
               {/* <Logo /> */}
-              <img  src="/static/images/logo/logo-light1.png"/>
+              <img alt="logo"  src="/static/images/logo/logo-light1.png"/>
             </Box>
           </Box>
           <Divider

@@ -11,7 +11,7 @@ import {
 // import AttachFileTwoToneIcon from '@mui/icons-material/AttachFileTwoTone';
 // import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
 import { useForm } from 'react-hook-form';
-import { ChatRequest } from '@/Services/Requests/chatReq';
+// import { ChatRequest } from '@/Services/Requests/chatReq';
 // import{useState} from "react";
 import Axios from '@/Services/Requests/interceptor';
 // import { useRouter } from 'next/router';
@@ -20,6 +20,7 @@ import Axios from '@/Services/Requests/interceptor';
 // import { useFetchUserData } from '@/Services/Query/userQuery';
 import { toast } from 'react-toastify';
 import { ia_api } from '@/Services/enviro';
+import { useAddDiscuss } from '@/Services/Query/chatQuery';
 
 const MessageInputWrapper = styled(InputBase)(
   ({ theme }) => `
@@ -35,12 +36,13 @@ const MessageInputWrapper = styled(InputBase)(
 
 
 
-function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError,inter, setinter, setquery}) {
+function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError,inter, setinter, setquery,chat_id,setchat_id}) {
   // const {data: thisuser, isLoading, isError} = useFetchUserData()
   // const { discussId,setdiscussId } = useContext(ChatContext)
 
   console.log(response);
   console.log(error);
+  
   
   // const [discussId, setdiscussId] = useState(null)
   // const { converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError} = props;
@@ -54,6 +56,10 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
   // const router = useRouter()
   // {router.query.slug}
   const { register, handleSubmit,reset } = useForm();
+  const { mutateAsync, 
+    // isLoading: isLoadingAddAgent, 
+    // error: errorAddAgent
+   } = useAddDiscuss();
   // const { register, handleSubmit,reset } = useForm<Inputs>();
   // const onSubmit: SubmitHandler<Inputs> = (data) => {
   //             console.log(data);}
@@ -118,13 +124,17 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
         // const apiUrlfull = "http://127.0.0.1:8001/chatbot?collect_name=entouragetest10&query="+query+"&model=gpt-4&temp=0&templa=As%20a%20career%20development%20expert%2C%20you%20need%20to%20provide%20a%20helpful%20and%20professional%20answer%20to%20the%20user%27s%20question%20or%20problem.%20Add%20to%20your%20answers%20interesting%20professional%20profiles%20related%20to%20his%20question.%20Remember%20that%20you%20should%20never%20make%20up%20any%20information%20if%20you%20don%27t%20have%20a%20correct%20answer%20to%20the%20question."; // Your API URL
   //   const apiUrlfull = 'http://127.0.0.1:8001/chatbot?'+'collect_name:=entouragetest10'+'&query=Bonjour'+'&json_data=%5B%5D'+'&model=gpt-3.5-turbo&temp=0.6'+'&templa='+"As a career development expert, you need to provide a helpful and professional response to the user\'s question or problem. Add to your answers interesting professional profiles related to his question. Remember that you should never invent or provide professional profiles that are not in the CONTEXT provided."; // Your API URL
         const response = await Axios.post(apiUrlfull);
-        const res =  await ChatRequest.ask1(data.query, JSON.stringify(response.data))
+        // const res =  await ChatRequest.ask1(data.query, JSON.stringify(response.data),chat_id)
+       const da = {query:data.query, answer: JSON.stringify(response.data), chat_id:chat_id}
+        const res = await mutateAsync(da)
+        const idd = res.data.user_chat_id
+         setchat_id(idd)
         console.log("res data");
         console.log(res);
 
 
         
-        setConverse([...converse,{who: "human", data: query}, {who: "ia", data: response.data} ])
+        setConverse([...converse,{who: "human", data: query}, {who: "ia", data: response.data, id: res.data.id} ])
         setinter([...inter,{"query":query,"response":response.data.bot_response}])
   
         // const res =  await ChatRequest.ask1(data.query, JSON.stringify(response.data))
@@ -179,6 +189,7 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
         />
       </Box>
       <Box>
+        {/* {chat_id} */}
         {/* <Tooltip arrow placement="top" title="Choose an emoji">
           <IconButton
             sx={{ fontSize: theme.typography.pxToRem(16) }}
@@ -197,7 +208,7 @@ function BottomBarContent({ converse, setConverse, chatLoad, setchatLoad, respon
         </Tooltip> */}
         {/* <Button style={{backgroundColor:"gold", color:"brown"}} startIcon={<SendTwoToneIcon />} variant="contained"> */}
         <Button disabled={chatLoad} type="submit" style={{backgroundColor:"transparent"}} variant="contained"> 
-       { !chatLoad? <img  src="/static/images/logo/submit.svg"/>:
+       { !chatLoad? <img alt="loading response"  src="/static/images/logo/submit.svg"/>:
          <i style={{fontSize:"25px"}} className="bi bi-cloud-upload-fill text-danger"></i>}
         </Button>
       </Box></span>

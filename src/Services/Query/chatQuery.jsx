@@ -41,12 +41,12 @@ export function useFetchAgentData() {
   }
   
 
-  export function useAddAgent() {
+  export function useAddDiscuss() {
     const queryClient = useQueryClient()
     return useMutation(async (data) => {
       try {
-        console.log("Create---->Agent", data);
-      const res = await agentReq.AddAgent(data)
+        console.log("Add---->Discuss", data);
+      const res = await ChatRequest.ask2(data)
 
       return res
 
@@ -61,7 +61,33 @@ export function useFetchAgentData() {
   
     },{
       onSuccess: () => {
-        queryClient.invalidateQueries('agentData')
+        queryClient.invalidateQueries('converseData')
+      }
+    });
+  }
+
+
+  export function useSetLikes() {
+    const queryClient = useQueryClient()
+    return useMutation(async (data) => {
+      try {
+        console.log("set like", data);
+      const res = await ChatRequest.setlike(data.converse_id, data.is_liked, data.reason)
+
+      return res
+
+          
+      } catch (error) {
+          console.log(error)
+          console.log(error.message);
+      // toast(error.response.data.message, { hideProgressBar: false, autoClose: 4000, type: 'error' })
+          
+      }
+
+  
+    },{
+      onSuccess: () => {
+        queryClient.invalidateQueries('converseData')
       }
     });
   }
