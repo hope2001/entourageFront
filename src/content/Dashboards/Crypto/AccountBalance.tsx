@@ -1,12 +1,12 @@
 import {
-  Button,
+  // Button,
   Card,
   Box,
   Grid,
   Typography,
   useTheme,
   styled,
-  Avatar,
+  // Avatar,
   Divider,
   alpha,
   ListItem,
@@ -14,20 +14,21 @@ import {
   List,
   ListItemAvatar
 } from '@mui/material';
-import TrendingUp from '@mui/icons-material/TrendingUp';
+// import TrendingUp from '@mui/icons-material/TrendingUp';
 import Text from 'src/components/Text';
 import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
 
-const AvatarSuccess = styled(Avatar)(
-  ({ theme }) => `
-      background-color: ${theme.colors.success.main};
-      color: ${theme.palette.success.contrastText};
-      width: ${theme.spacing(8)};
-      height: ${theme.spacing(8)};
-      box-shadow: ${theme.colors.shadows.success};
-`
-);
+
+// const AvatarSuccess = styled(Avatar)(
+//   ({ theme }) => `
+//       background-color: ${theme.colors.success.main};
+//       color: ${theme.palette.success.contrastText};
+//       width: ${theme.spacing(8)};
+//       height: ${theme.spacing(8)};
+//       box-shadow: ${theme.colors.shadows.success};
+// `
+// );
 
 const ListItemAvatarWrapper = styled(ListItemAvatar)(
   ({ theme }) => `
@@ -55,7 +56,10 @@ const ListItemAvatarWrapper = styled(ListItemAvatar)(
 `
 );
 
-function AccountBalance() {
+function AccountBalance({dashData}) {
+
+
+  
   const theme = useTheme();
 
   const chartOptions: ApexOptions = {
@@ -73,7 +77,7 @@ function AccountBalance() {
         }
       }
     },
-    colors: ['#ff9900', '#1c81c2', '#333', '#5c6ac0'],
+    colors: ['#ff9900', '#FF0000', '#333', '#5c6ac0'],
     dataLabels: {
       enabled: true,
       formatter: function (val) {
@@ -110,7 +114,7 @@ function AccountBalance() {
     fill: {
       opacity: 1
     },
-    labels: ['Bitcoin', 'Ripple', 'Cardano', 'Ethereum'],
+    labels: ['Liked', 'Disliked', 'Neutral'],
     legend: {
       labels: {
         colors: theme.colors.alpha.trueWhite[100]
@@ -125,12 +129,17 @@ function AccountBalance() {
     }
   };
 
-  const chartSeries = [10, 20, 25, 45];
+  const liked =(dashData?.conversesstats?.liked_converse_count)/dashData?.conversesstats?.count_converse
+  const disliked =(dashData?.conversesstats?.disliked_converse_count )/dashData?.conversesstats?.count_converse
+  const neutral =dashData?.conversesstats?.count_converse - (liked +disliked)
+
+  const chartSeries = [liked, disliked, neutral];
 
   return (
     <Card>
+     
       <Grid spacing={0} container>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={4}>
           <Box p={4}>
             <Typography
               sx={{
@@ -187,7 +196,7 @@ function AccountBalance() {
               </Grid>
             </Grid>
           </Box>
-        </Grid>
+        </Grid> */}
         <Grid
           sx={{
             position: 'relative'
@@ -196,7 +205,7 @@ function AccountBalance() {
           alignItems="center"
           item
           xs={12}
-          md={6}
+          md={12}
         >
           <Box
             component="span"
@@ -207,10 +216,10 @@ function AccountBalance() {
             <Divider absolute orientation="vertical" />
           </Box>
           <Box py={4} pr={4} flex={1}>
-            <Grid container spacing={0}>
+            <Grid container spacing={1}>
               <Grid
                 xs={12}
-                sm={5}
+                sm={6}
                 item
                 display="flex"
                 justifyContent="center"
@@ -223,7 +232,7 @@ function AccountBalance() {
                   type="donut"
                 />
               </Grid>
-              <Grid xs={12} sm={7} item display="flex" alignItems="center">
+              <Grid xs={12} sm={6} item display="flex" alignItems="center">
                 <List
                   disablePadding
                   sx={{
@@ -234,23 +243,24 @@ function AccountBalance() {
                     <ListItemAvatarWrapper>
                       <img
                         alt="BTC"
-                        src="/static/images/placeholders/logo/bitcoin.png"
+                        src="/static/images/avatars/1.jpg"
                       />
                     </ListItemAvatarWrapper>
                     <ListItemText
-                      primary="BTC"
+                      primary="Total Users"
                       primaryTypographyProps={{ variant: 'h5', noWrap: true }}
-                      secondary="Bitcoin"
+                      secondary="New Users"
                       secondaryTypographyProps={{
                         variant: 'subtitle2',
                         noWrap: true
                       }}
                     />
-                    <Box>
+                    <Box className="mx-">
                       <Typography align="right" variant="h4" noWrap>
-                        20%
+                         {dashData?.userstat?.count}
                       </Typography>
-                      <Text color="success">+2.54%</Text>
+                      <Text color="primary"> {dashData?.userstat?.today_users_count} </Text>
+                      
                     </Box>
                   </ListItem>
                   <ListItem disableGutters>
@@ -261,20 +271,21 @@ function AccountBalance() {
                       />
                     </ListItemAvatarWrapper>
                     <ListItemText
-                      primary="XRP"
+                      primary="Conversations"
                       primaryTypographyProps={{ variant: 'h5', noWrap: true }}
-                      secondary="Ripple"
+                      secondary="Likes"
                       secondaryTypographyProps={{
                         variant: 'subtitle2',
                         noWrap: true
                       }}
                     />
-                    <Box>
+                    <Box className="mx-">
                       <Typography align="right" variant="h4" noWrap>
-                        10%
+                      {dashData?.conversesstats?.count_converse}
                       </Typography>
-                      <Text color="error">-1.22%</Text>
+                      <Text color="success">  {dashData?.conversesstats?.liked_converse_count} </Text>
                     </Box>
+                   
                   </ListItem>
                   <ListItem disableGutters>
                     <ListItemAvatarWrapper>
@@ -284,22 +295,22 @@ function AccountBalance() {
                       />
                     </ListItemAvatarWrapper>
                     <ListItemText
-                      primary="ADA"
+                      primary="Conversations"
                       primaryTypographyProps={{ variant: 'h5', noWrap: true }}
-                      secondary="Cardano"
+                      secondary="Dislikes"
                       secondaryTypographyProps={{
                         variant: 'subtitle2',
                         noWrap: true
                       }}
                     />
-                    <Box>
+                      <Box className="mx-">
                       <Typography align="right" variant="h4" noWrap>
-                        40%
+                      {dashData?.conversesstats?.count_converse}
                       </Typography>
-                      <Text color="success">+10.50%</Text>
+                      <Text color="error">  {dashData?.conversesstats?.disliked_converse_count} </Text>
                     </Box>
                   </ListItem>
-                  <ListItem disableGutters>
+                  {/* <ListItem disableGutters>
                     <ListItemAvatarWrapper>
                       <img
                         alt="ETH"
@@ -321,7 +332,7 @@ function AccountBalance() {
                       </Typography>
                       <Text color="error">-12.38%</Text>
                     </Box>
-                  </ListItem>
+                  </ListItem> */}
                 </List>
               </Grid>
             </Grid>

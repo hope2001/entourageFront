@@ -1,3 +1,4 @@
+import { useFetchUserData } from '@/Services/Query/userQuery';
 import { Typography, Avatar, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -6,6 +7,14 @@ function PageHeader() {
     name: 'Catherine Pike',
     avatar: '/static/images/avatars/1.jpg'
   };
+
+  const {
+    data: userdata,
+    // isLoading: isLoadinguser,
+    // error: erroruser,
+    // refetch
+  } = useFetchUserData();
+
   const theme = useTheme();
 
   return (
@@ -18,16 +27,16 @@ function PageHeader() {
             height: theme.spacing(8)
           }}
           variant="rounded"
-          alt={user.name}
+          alt={userdata?.name}
           src={user.avatar}
         />
       </Grid>
       <Grid item>
         <Typography variant="h3" component="h3" gutterBottom>
-          Welcome, {user.name}!
+          Welcome, {userdata?.name}!
         </Typography>
         <Typography variant="subtitle2">
-          Today is a good day to start trading crypto assets!
+          Today is a good day to check entourage performances!
         </Typography>
       </Grid>
     </Grid>
