@@ -23,7 +23,7 @@ function usePagination(data, pageSize) {
 // Define the Table_User component
 function Table_User({ dashData }) {
   // Use the usePagination hook to paginate the data
-  const { currentPage, totalPages, paginatedData, setCurrentPage } = usePagination(dashData?.userstat?.user_list.reverse(), 10);
+  const { currentPage, totalPages, paginatedData, setCurrentPage } = usePagination(dashData?.userstat?.user_list, 10);
 
   // Render the table header
   const renderTableHeader = () => {
@@ -46,7 +46,7 @@ function Table_User({ dashData }) {
       <tbody>
         {paginatedData?.map((item, index) => (
           <tr key={index}>
-            <th scope="row"> {index + 1} </th>
+            <th scope="row"> {currentPage*10 +index + 1} </th>
             <td> {item.name} </td>
             <td> {item.email} </td>
             <td> {item.created_at.split('T')[0]} </td>

@@ -28,7 +28,7 @@ function Table_Converse({ dashData }) {
   // Use the usePagination hook to paginate the data
   const [show, setShow] = useState(false);
   const [mdata, setMdata] = useState({});
-  const { currentPage, totalPages, paginatedData, setCurrentPage } = usePagination(dashData?.conversesstats?.converses.reverse(), 10);
+  const { currentPage, totalPages, paginatedData, setCurrentPage } = usePagination(dashData?.conversesstats?.converses, 10);
 
   // Render the table header
   const renderTableHeader = () => {
@@ -61,7 +61,7 @@ const itdata = (item)=>{
       <tbody>
         {paginatedData?.map((item, index) => (
             <tr onClick={()=> itdata(item)} key={index} >
-            <th  scope="row"> {index + 1} </th>
+            <th  scope="row"> {currentPage *10 +index + 1} </th>
             <td> {item.user_name} </td>
             <td> {item.query} </td>
             <td> {item.created_at.split('T')[0]} </td>
