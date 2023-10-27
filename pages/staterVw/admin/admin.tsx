@@ -19,7 +19,14 @@ import { DashRequest } from '@/Services/Requests/dashboard';
 import Table_User from "@/content/Dashboards/Crypto/TableUser"
 import Table_Converse from "@/content/Dashboards/Crypto/TableConverse"
 import { Tokenn } from '@/Services/Helpers/TokenLogic';
+
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Axios from '@/Services/Requests/interceptor';
+
 function DashboardCrypto() {
+
+  
 const [skey, setskey] = useState(null)
   const router = useRouter();
   const {
@@ -96,6 +103,7 @@ if(!isLoadingCurrentUser &&!currenntuser && skey !== "Ent@urage2@23"){
               {/* {skey} */}
               <span onClick={()=> setTab("user")} className="btn btn-sm btn-dark">Users list</span>
               <span onClick={()=> setTab("converse")} className="btn btn-sm btn-dark">Conversations</span>
+              <Dropbtn/>
             </div>
            {tab == "user"? <Table_User dashData={dashData}/>:
             <Table_Converse dashData={dashData}/>}
@@ -122,3 +130,64 @@ if(!isLoadingCurrentUser &&!currenntuser && skey !== "Ent@urage2@23"){
 DashboardCrypto.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
 export default DashboardCrypto;
+// const downusercsv = async () => {
+//   try {
+//     const response = await Axios.get('/dashboard/usertocsv');
+//     console.log(response);
+//     return response.data
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+// const downconversecsv = async () => {
+//   try {
+//     const response = await Axios.get('/dashboard/conversestocsv');
+//     // console.log(response.data);
+//     return response.data
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+
+
+
+const downloaduserCSV = () => {
+  Axios.get('/dashboard/usertocsv', { responseType: 'blob' }) // Make sure to use the correct URL
+    .then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'user.csv');
+      document.body.appendChild(link);
+      link.click();
+      window.URL.revokeObjectURL(url);
+    })
+    .catch((error) => {
+      console.error('Error downloading CSV:', error);
+    });
+}
+const downloadconverseCSV = () => {
+  Axios.get('/dashboard/conversestocsv', { responseType: 'blob' }) // Make sure to use the correct URL
+    .then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'converse.csv');
+      document.body.appendChild(link);
+      link.click();
+      window.URL.revokeObjectURL(url);
+    })
+    .catch((error) => {
+      console.error('Error downloading CSV:', error);
+    });
+}
+
+function Dropbtn() {
+  return (
+    <DropdownButton id="dropdown-basic-button" title="Extract to csv">
+      <Dropdown.Item onClick={()=>downloaduserCSV()} >User csv </Dropdown.Item>
+      <Dropdown.Item  onClick={()=>downloadconverseCSV()}>Converse csv</Dropdown.Item>
+    </DropdownButton>
+  );
+}

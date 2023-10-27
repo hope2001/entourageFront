@@ -156,7 +156,7 @@ function Modaldata({show, setShow, mdata}) {
           <Modal.Header closeButton>
             <Modal.Title>Details</Modal.Title>
           </Modal.Header>
-          {/* {JSON.stringify(mdata)} }*/}
+          {/* {JSON.stringify(mdata)}  */}
           {/* <CollapsibleText className="px-3 mx-3" text={detail.answer?.bot_response} />  */}
  <Modal.Body className="">
           <div className="container-fluid" style={{fontSize:"14px"}}>
@@ -170,10 +170,10 @@ function Modaldata({show, setShow, mdata}) {
             <strong>Answer: </strong> <span  style={{ whiteSpace: 'break-spaces', lineHeight: "1.8rem", fontSize: "12px" }}  className="p-2 bg- text-dark"> {detail.answer}  </span> 
             {/* <strong>Answer: </strong> <span> <CollapsibleText className="px-3 mx-3" text={detail.answer?.bot_response} />  </span>  */}
             </div>
-            <div className="row my-2">
-            <strong>Status: </strong> <span> {detail?.isliked ? "liked": "Disliked"} </span> 
-            </div>
-           {<div className="row my-2">
+            {detail?.isliked !== null &&<div className="row my-2">
+            <strong>Status: </strong> <span> {detail?.isliked ? "liked":detail?.isliked == null? "Any reaction ": "Disliked"} </span> 
+            </div>}
+           { detail?.isliked !== null &&<div className="row my-2">
             <strong>Reason: </strong> <span> {detail?.raison} </span> 
             </div>}
                      {/* <div className="row my-3">
