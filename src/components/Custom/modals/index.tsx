@@ -196,42 +196,73 @@ function Example({data, show, setShow}) {
         <Modal.Body className="">
           {/* {JSON.stringify(data)} */}
           <div className="container-fluid" style={{fontSize:"14px"}}>
+           {data?.file_image && <div className="d-flex my-2 justify-content-around">
+              <div className="rounded-circle border overflow-hidden" style={{width:"180px", height:"180px", borderRadius:"50%"}}>
+                <img src={"/event_pic/"+data?.file_image} className="w-100 h-100"/>
+              </div>
+            </div>}
             <div className="row my-3">
               <h4 className="col-md-12 text-center"> {data?.Full_name}  <a rel="noreferrer" href={data?.Linkedin} target="_blank"><i className="bi bi-linkedin text-primary"></i></a>  </h4>
             { data?.Email? <h6 className="col-md-12 text-center text-dark ">   <a style={{textDecoration:"none", color:"gray"}} rel="noreferrer" href={'mailto:'+data?.Email} target="_blank"> {data?.Email} </a>  </h6> : <span></span>}
               </div>
             <div className="row text-cente p-2">
-              <div className="col-md-4 d-flex flex-column"> <span>Country</span> <strong>{data?.Country ||"N.A"}</strong>  </div>
+             {data?.Country && <div className="col-md-4 d-flex flex-column"> <span>Country</span> <strong>{data?.Country ||"N.A"}</strong>  </div>}
               
-              <div className="col-md-4 d-flex flex-column"> 
+             {data?.Cohort && <div className="col-md-4 d-flex flex-column"> 
               <span>Cohort</span> 
-             {data?.Cohort.length>1 ?  <strong > 
+             {/* {data?.Cohort.length>1 ?  <strong >  */}
+             {(data?.Cohort && data?.Cohort.length>1 )?  <strong > 
                 {data.Cohort}
                 </strong>:
                 <span>N.A</span> }
-              </div>
+              </div>}
 
-              <div className="col-md-4 d-flex flex-column"> 
+              {data?.Position &&<div className="col-md-4 d-flex flex-column"> 
               <span>Postion</span> 
              {data?.Position.length>1 ?  <strong > 
                 {data.Position}
                 </strong>:
                 <span>N.A</span> }
-              </div>
+              </div>}
+
+             {data?.Company && <div className="col-md-4 d-flex flex-column"> 
+              <span>Company</span> 
+             {data?.Company ?  <strong > 
+                {data.Company}
+                </strong>:
+                <span>N.A</span> }
+              </div>}
+              {data?.Location && <div className="col-md-4 d-flex flex-column"> 
+              <span>Location</span> 
+             {data?.Location ?  <strong > 
+                {data?.Location}
+                </strong>:
+                <span>N.A</span> }
+              </div>}
 
 
               {/* <div className="col-md-4 d-flex flex-column"> <span>LinkedIn</span> <span> {<Link className="btn btn-primary" href={data?.Linkedin}> <i className="bi bi-linkedin"></i> {data?.Linkedin ||"N.A"}</Link> ||"N.A"} </span>  </div> */}
               <div className="my-2"></div>
-              <div className="col-md-8 d-flex flex-column"> <span> Area of Expertise </span> <strong>{data?.Area_of_Expertise ||"N.A"}</strong>  </div>
+              {data?.Area_of_Expertise && <div className="col-md-12 d-flex flex-column my-2"> <span> Area of Expertise </span> 
+              <strong>{data?.Area_of_Expertise ||"N.A"}</strong>  </div>}
+             { data?.Skills && <div className="col-md-12 d-flex flex-column my-3"> <span> Skills </span> <strong>{data?.Skills ||"N.A"}</strong>  </div>}
               </div>
-              <div className="row p-2 my-4">
+              {data?.Profil_description && <div className="row p-2 my-2">
+                  <strong className="">Profil description</strong>
+                <div className="col ">
+                  <div style={{ whiteSpace: 'break-spaces', lineHeight: '1.4rem', textAlign:"justify" }} className="">
+                  {data?.Profil_description ||"N.A"}
+                  </div>
+                </div>
+              </div>}
+              {data?.Biography && <div className="row p-2 my-4">
                   <strong className="">Bio</strong>
                 <div className="col ">
                   <div style={{ whiteSpace: 'break-spaces', lineHeight: '1.2rem', textAlign:"justify" }} className="">
                   {data?.Biography ||"N.A"}
                   </div>
                 </div>
-              </div>
+              </div>}
           </div>
         </Modal.Body>
         {/* <Modal.Footer>

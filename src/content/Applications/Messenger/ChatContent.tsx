@@ -159,9 +159,10 @@ function ChatContent({ converse,  chatLoad, query}) {
                      
                        <div onClick={()=> popProfilInfo(elmt)} className="container my-2 text-dark"> 
                         <div className="row p-2 border" style={{ backgroundColor: "#F3E5DB", borderRadius: "10px", color: "black"}}>
-                          <strong className=""> {elmt.Full_name}</strong>
-                          <div className=""> {elmt.Email}</div>
-                          <div className=" mt-3"> <CollapsibleText1 text={elmt.Biography} /> </div>
+                          <strong className=""> {elmt?.Full_name}</strong>
+                          <div className=""> {elmt?.Email}</div>
+                         {elmt?.Biography && <div className=" mt-3"> <CollapsibleText1 text={elmt?.Biography} /> </div>}
+                         {elmt?.Profil_description&& <div className=" mt-3"> <CollapsibleText1 text={elmt?.Profil_description} /> </div>}
                           <div className=" mt-3"> <span style={{ backgroundColor: "#F3E5DB"}} className="btn btn-outline-warning">Details</span> </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 // import { useRouter } from 'next/router';
-// import { useRouter } from 'next/router'
+
 import {
   // ListSubheader,
   alpha,
@@ -262,7 +262,6 @@ const historyer =(item)=>{
   setchangeHistory(!changeHistory)
   setfromHistory(item)
 }
-// const router = useRouter()
 
   return (
     <>
@@ -271,7 +270,7 @@ const historyer =(item)=>{
           <SubMenuWrapper>
 
     <div aria-disabled className="d-flex flex-column rounded bg-dar ">
-      <div className="btn bt mb-2 " style={{backgroundColor: "black"}}>  Chat History <i className="bi bi-arrow-down"></i> </div>
+      <div className="btn bt mb-2 " style={{backgroundColor: "black"}}>Chat History <i className="bi bi-arrow-down"></i> </div>
       {/* {JSON.stringify(fromHistory)} */}
 
 
@@ -306,7 +305,8 @@ const historyer =(item)=>{
             <div onClick={()=> setnewChat(!newChat)}  className="w-100 p-2 btn btn-outline-warning mt-5"> 
             <span> <i className="bi bi-plus-circle"></i> New Chat</span>
             </div>
-            <div  className="d-flex w-100 mt-5 justify-content-around">                
+            <div  className="d-flex w-100 mt-5 justify-content-around"> 
+                
                 <Link href="/chat">
                     <div className="d-flex p-2 btn btn-outline-light "> 
                         <span> <i className="bi bi-chat-left-dots-fill"></i> Chat</span>
@@ -317,6 +317,8 @@ const historyer =(item)=>{
                         <span> <i className="bi bi-calendar-event-fill"></i> Event</span>
                     </div>
                 </Link>
+
+
             </div>
 
             {/* <List component="div">
