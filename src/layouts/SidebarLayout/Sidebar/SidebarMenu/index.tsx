@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
-// import { useRouter } from 'next/router';
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import {
   // ListSubheader,
   alpha,
@@ -195,6 +194,8 @@ const SubMenuWrapper = styled(Box)(
 );
 
 function SidebarMenu() {
+  const router = useRouter();
+  const pathname = router.pathname;
   const {
     data: Converses,
     // isLoading: isLoadingConverses,
@@ -267,11 +268,28 @@ const historyer =(item)=>{
   return (
     <>
       <MenuWrapper>
+        <h2 className="text-center uppercase bg-warning text-dark p-2">
+          <strong>
+          {pathname =="/chat" && "Chat"}
+          {pathname =="/event" && "Event"}</strong>
+          </h2>
+          <div  className="d-flex w-100 mt-1 justify-content-around">                
+                <Link href="/chat">
+                    <div className={pathname =="/chat"? "d-flex p-2 btn btn-light": "d-flex p-2 btn btn-outline-light"}> 
+                        <span> <i className="bi bi-chat-left-dots-fill"></i> Chat</span>
+                    </div>
+                </Link>
+                <Link href="/event">
+                    <div className={pathname =="/event"? "d-flex p-2 btn btn-light": "d-flex p-2 btn btn-outline-light"}> 
+                        <span> <i className="bi bi-calendar-event-fill"></i> Event</span>
+                    </div>
+                </Link>
+            </div>
         <List component="div" >
           <SubMenuWrapper>
 
     <div aria-disabled className="d-flex flex-column rounded bg-dar ">
-      <div className="btn bt mb-2 " style={{backgroundColor: "black"}}>  Chat History <i className="bi bi-arrow-down"></i> </div>
+      <div className="btn bt mb-2 " style={{backgroundColor: "black"}}>   Chat History <i className="bi bi-arrow-down"></i> </div>
       {/* {JSON.stringify(fromHistory)} */}
 
 
@@ -306,18 +324,7 @@ const historyer =(item)=>{
             <div onClick={()=> setnewChat(!newChat)}  className="w-100 p-2 btn btn-outline-warning mt-5"> 
             <span> <i className="bi bi-plus-circle"></i> New Chat</span>
             </div>
-            <div  className="d-flex w-100 mt-5 justify-content-around">                
-                <Link href="/chat">
-                    <div className="d-flex p-2 btn btn-outline-light "> 
-                        <span> <i className="bi bi-chat-left-dots-fill"></i> Chat</span>
-                    </div>
-                </Link>
-                <Link href="/event">
-                    <div className="d-flex p-2 btn btn-outline-light "> 
-                        <span> <i className="bi bi-calendar-event-fill"></i> Event</span>
-                    </div>
-                </Link>
-            </div>
+
 
             {/* <List component="div">
               <ListItem component="div">

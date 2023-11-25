@@ -1,5 +1,6 @@
 import { Box, Avatar, Typography, Card, styled, Slide } from '@mui/material';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 // import {
 //   formatDistance,
 //   format,
@@ -55,22 +56,33 @@ const CardWrapperSecondary = styled(Card)(
 
 
 function ChatContent({ converse,  chatLoad, query}) {
+  const router = useRouter();
+  const pathname = router.pathname;
 // function ChatContent({ converse, setConverse, chatLoad, setchatLoad, response, setResponse, error, setError }) {
   const user = {
     name: 'Catherine Pike',
     avatar: '/static/images/avatars/1.jpg'
   };
 
-  const qst = [
+  const chatqst = [
     { query: "I'm looking for job opportunities in africa in construction industry" },
     { query: "I'm looking for expert on digital marketing for a panel discussion" },
     { query: "I'm looking for career coach to help prepare me for interview in consulting industry" },
     { query: "I want to pivot my career to management consulting. Who should I talk with ?" }
 
   ]
+  const eventqst = [
+    { query: "What are top 3 questions i should ask during this event based on my finance background?" },
+    { query: "I'm professional with an expertise in sustainability. Who should i connected with during this event and why?" },
+    { query: "I'm professional with an marketing background. Who should i connected with during this event and why? Who else?" },
+    { query: "I'm professional with a finance background. What can i expect from this event?" },
+    { query: "What is this event about?" },
+
+  ]
 
   // const [isOpen, setIsOpen] = useState(false);
   const [infoDetails, setinfoDetails] = useState(null);
+  const [qst, setQST] = useState([]);
   const [openInfoDetails, setopenInfoDetails] = useState(false);
 
   const popProfilInfo = (data)=>{
@@ -88,9 +100,17 @@ function ChatContent({ converse,  chatLoad, query}) {
     
 //   }
 // }
+useEffect(() => {
+    if(pathname =="/chat"){
+      setQST(chatqst)
+    }
+    else if(pathname =="/event"){
+      setQST(eventqst)
+    }
+}, [pathname])
+
   return (
     <Box p={3}>
-
 
       {/* <DividerWrapper>
         {format(subDays(new Date(), 3), 'MMMM dd yyyy')}
