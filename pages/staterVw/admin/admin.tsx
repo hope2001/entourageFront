@@ -23,6 +23,7 @@ import { Tokenn } from '@/Services/Helpers/TokenLogic';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Axios from '@/Services/Requests/interceptor';
+import Table_EventConverse from '@/content/Dashboards/TableEventConverse';
 
 function DashboardCrypto() {
 
@@ -52,7 +53,8 @@ useEffect(() => {
     try {
     let a = await DashRequest.userstats()
     let b = await DashRequest.conversesstats()
-    let data = {userstat: a.data, conversesstats: b.data}
+    let c = await DashRequest.eventconversesstats()
+    let data = {userstat: a.data, conversesstats: b.data, eventconversesstats: c.data }
     // alert(JSON.stringify(data))
     setdashData(data)
     return data
@@ -103,10 +105,12 @@ if(!isLoadingCurrentUser &&!currenntuser && skey !== "Ent@urage2@23"){
               {/* {skey} */}
               <span onClick={()=> setTab("user")} className="btn btn-sm btn-dark">Users list</span>
               <span onClick={()=> setTab("converse")} className="btn btn-sm btn-dark">Conversations</span>
+              <span onClick={()=> setTab("eventconverse")} className="btn btn-sm btn-dark">Event Conversations</span>
               <Dropbtn/>
             </div>
-           {tab == "user"? <Table_User dashData={dashData}/>:
-            <Table_Converse dashData={dashData}/>}
+           {tab == "user"&&  <Table_User dashData={dashData}/>}
+           {tab == "converse"&&  <Table_Converse dashData={dashData}/>}
+           {tab == "eventconverse"&& <Table_EventConverse dashData={dashData}/>}
           </Grid>
           <Grid item lg={10} xs={12} mb={4}>
             {/* <Datatable dashData={dashData}/> */}

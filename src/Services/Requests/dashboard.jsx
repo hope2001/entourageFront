@@ -17,6 +17,9 @@ let userstats = () => {
 let conversesstats = () => {
     return Axios.get("/dashboard/conversestats")
 }
+let eventconversesstats = () => {
+    return Axios.get("/dashboard/eventconversestats")
+}
 let ask1 = (message , answer,chat_id) => {
     return Axios.post('/converse/create',{query:message, answer:answer, chat_id:chat_id})
 }
@@ -52,5 +55,5 @@ let userLogedData = () => {
 }
 
 export const DashRequest = {
-    userstats,conversesstats
+    userstats,conversesstats, eventconversesstats
 }
